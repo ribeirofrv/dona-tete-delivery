@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 const RecipeCard = ({ id, name, price, url_image }) => (
     <div data-testid={ `customer_products__element-card-${id}` }>
