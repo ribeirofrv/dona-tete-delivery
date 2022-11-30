@@ -8,14 +8,18 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'sales',
           key: 'id',
         }
       },
       product_id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'products',
           key: 'id',
@@ -23,6 +27,7 @@ module.exports = {
       },
       quantity: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
     });
   },
