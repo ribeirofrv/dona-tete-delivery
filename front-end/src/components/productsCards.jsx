@@ -11,6 +11,7 @@ const RecipeCard = ({ id, name, price, url_image }) => (
         />
       </figure>
       <div>
+      <h2 data-testid={ `customer_products__element-card-title-${id}`} >{name}</h2>
       <h2 data-testid={ `customer_products__element-card-price-${id}`} >{price}</h2>
       </div>
     </div>
