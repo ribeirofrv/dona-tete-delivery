@@ -3,9 +3,8 @@ import { PropTypes } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import productsCard from './productsCards';
-import SelectionFilter from './SelectionFilter';
 
-const Drinks = () => {
+function Products() {
   const history = useHistory();
   const maxCards = 12;
   const dispatch = useDispatch();
@@ -17,41 +16,32 @@ const Drinks = () => {
   }, []);
   return (
     <div>
-      <Header title="Drinks" search />
-      {
-        searchBarStatus && <SeachBar />
-      }
-      <SelectionFilter />
       {
         productsData && (
           <div>
             {
-              productsData?.length === 1
-                ? history.push(`/drinks/${productsData[0]?.idDrink}`)
-                : ([...productsData]?.splice(0, maxCards)
-                  .map((meal, i) => (
-                    <productsCard
-                      key={ meal.idDrink }
-                      idRecipe={ meal.idDrink }
-                      id={ i }
-                      title={ meal.strDrink }
-                      image={ meal.strDrinkThumb }
-                      isDrink
-                    />
-                  )))
+              ([...productsData]?.splice(0, maxCards)
+                .map((product, i) => (
+                  <productsCard
+                    key={ product.idDrink }
+                    idRecipe={ product.idDrink }
+                    id={ i }
+                    title={ product.strDrink }
+                    image={ product.strDrinkThumb }
+                  />
+                )))
             }
           </div>
         )
       }
-      <Footer />
     </div>
   );
-};
+}
 
-Drinks.propTypes = {
+Products.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.fuc,
   }),
 }.isRequired;
 
-export default Drinks;
+export default Products;
