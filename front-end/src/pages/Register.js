@@ -1,32 +1,39 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
-export default function Login({ history }) {
+export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [isDisabled, setIsDisabled] = useState(true);
+  const [name, setName] = useState('');
 
   const validationInputs = () => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    const bool = !(password.length >= +'6' && emailRegex.test(email));
+    const bool = !(password.length >= +'6' && emailRegex
+      .test(email) && name.length >= +'12');
     return bool;
-  };
-
-  const redirectToRegister = () => {
-    history.push('/register');
   };
 
   return (
     <section>
-      <label htmlFor="login">
-        Login
+      <label htmlFor="name">
+        Nome
+        <input
+          onChange={ (e) => setName(e.target.value) }
+          value={ name }
+          type="text"
+          data-testid="common_register__input-name"
+          placeholder=""
+          id="name"
+        />
+      </label>
+      <label htmlFor="email">
+        Email
         <input
           onChange={ (e) => setEmail(e.target.value) }
           value={ email }
           type="text"
-          data-testid="common_login__input-email"
+          data-testid="common_register__input-email"
           placeholder="email@trybeer.com.br"
-          id="login"
+          id="email"
         />
       </label>
       <label htmlFor="password">
@@ -35,7 +42,7 @@ export default function Login({ history }) {
           onChange={ (e) => setPassword(e.target.value) }
           value={ password }
           type="password"
-          data-testid="common_login__input-password"
+          data-testid="common_register__input-password"
           placeholder="*****"
           id="password"
         />
@@ -44,23 +51,10 @@ export default function Login({ history }) {
         // onClick={ () => handleClick() }
         disabled={ validationInputs() }
         type="button"
-        data-testid="common_login__button-login"
+        data-testid="common_register__button-register"
       >
-        Login
-      </button>
-      <button
-        onClick={ () => redirectToRegister() }
-        type="button"
-        data-testid="common_login__button-register"
-      >
-        Ainda não tenho conta
+        Cadastrar
       </button>
     </section>
   );
 }
-
-Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
