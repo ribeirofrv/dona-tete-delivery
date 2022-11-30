@@ -4,46 +4,39 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import productsCard from './productsCards';
 
-const Products = () => {
+function Products() {
   const history = useHistory();
-  const maxCards = 11;
+  const maxCards = 12;
   const dispatch = useDispatch();
+  const searchBarStatus = useSelector((state) => state.reducer.isSearchBar);
+  const productsData = useSelector((state) => state.reducer.drinksData);
 
   useEffect(() => {
     dispatch(getDrinksToState(''));
   }, []);
   return (
     <div>
-      <Header title="Drinks" search />
       {
-        searchBarStatus && <SeachBar />
-      }
-      <SelectionFilter />
-      {
-        drinksData && (
-          <div className="flex flex-wrap items-center justify-center gap-5">
+        productsData && (
+          <div>
             {
-              drinksData?.length === 1
-                ? history.push(`/drinks/${drinksData[0]?.idDrink}`)
-                : ([...drinksData]?.splice(0, maxCards)
-                  .map((meal, i) => (
-                    <productsCard
-                      key={ meal.idDrink }
-                      idRecipe={ meal.idDrink }
-                      id={ i }
-                      title={ meal.strDrink }
-                      image={ meal.strDrinkThumb }
-                      isDrink
-                    />
-                  )))
+              ([...productsData]?.splice(0, maxCards)
+                .map((product, i) => (
+                  <productsCard
+                    key={ product.idDrink }
+                    idRecipe={ product.idDrink }
+                    id={ i }
+                    title={ product.strDrink }
+                    image={ product.strDrinkThumb }
+                  />
+                )))
             }
           </div>
         )
       }
-      <Footer />
     </div>
   );
-};
+}
 
 Products.propTypes = {
   history: PropTypes.shape({
