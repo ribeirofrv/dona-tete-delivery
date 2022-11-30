@@ -1,38 +1,32 @@
 import React, { useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import productsCard from './productsCards';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useHistory } from 'react-router-dom';
+import ProductsCards from './productsCards';
 
 function Products() {
-  const history = useHistory();
-  const maxCards = 12;
+  // const history = useHistory();
+  const maxCards = 11;
   const dispatch = useDispatch();
-  const searchBarStatus = useSelector((state) => state.reducer.isSearchBar);
   const productsData = useSelector((state) => state.reducer.drinksData);
 
   useEffect(() => {
-    dispatch(getDrinksToState(''));
+    dispatch(getProductsToState(''));
   }, []);
   return (
     <div>
       {
-        productsData && (
-          <div>
-            {
-              ([...productsData]?.splice(0, maxCards)
-                .map((product, i) => (
-                  <productsCard
-                    key={ product.idDrink }
-                    idRecipe={ product.idDrink }
-                    id={ i }
-                    title={ product.strDrink }
-                    image={ product.strDrinkThumb }
-                  />
-                )))
-            }
-          </div>
-        )
+        [...productsData]?.splice(0, maxCards)
+          .map((product, i) => (
+            <ProductsCards
+              key={ product.id }
+              idProduct={ product.id }
+              id={ i }
+              name={ product.name }
+              price={ product.price }
+              urlImage={ product.urlImage }
+            />
+          ))
       }
     </div>
   );
