@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { PropTypes } from 'prop-types';
+// import { PropTypes } from 'prop-types';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
 import ProductsCards from './productsCards';
+import NavBar from './NavBar';
 
 function Products() {
   // const history = useHistory();
@@ -15,27 +16,30 @@ function Products() {
   }, []);
   return (
     <div>
-      {
-        [...productsData]?.splice(0, maxCards)
-          .map((product, i) => (
-            <ProductsCards
-              key={ product.id }
-              idProduct={ product.id }
-              id={ i }
-              name={ product.name }
-              price={ product.price }
-              urlImage={ product.urlImage }
-            />
-          ))
-      }
+      <NavBar />
+      <div>
+        {
+          [...productsData]?.splice(0, maxCards)
+            .map((product, i) => (
+              <ProductsCards
+                key={ product.id }
+                idProduct={ product.id }
+                id={ i }
+                name={ product.name }
+                price={ product.price }
+                urlImage={ product.urlImage }
+              />
+            ))
+        }
+      </div>
     </div>
   );
 }
 
-Products.propTypes = {
+/* Products.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.fuc,
   }),
-}.isRequired;
+}.isRequired */
 
 export default Products;
