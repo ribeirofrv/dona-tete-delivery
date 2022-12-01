@@ -1,27 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const RecipeCard = ({ id, name, price, url_image }) => (
+function ProductsCard({ id, name, price, urlImage }) {
+  return (
     <div data-testid={ `customer_products__element-card-${id}` }>
       <figure>
         <img
           data-testid={ `customer_products__img-card-bg-image-${id}` }
-          src={ url_image }
+          src={ urlImage }
           alt={ price }
         />
       </figure>
       <div>
-      <h2 data-testid={ `customer_products__element-card-title-${id}`} >{name}</h2>
-      <h2 data-testid={ `customer_products__element-card-price-${id}`} >{price}</h2>
+        <h2 data-testid={ `customer_products__element-card-title-${id}` }>{name}</h2>
+        <h2 data-testid={ `customer_products__element-card-price-${id}` }>{price}</h2>
       </div>
     </div>
-);
+  );
+}
 
-RecipeCard.propTypes = {
+ProductsCard.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  url_image: PropTypes.string.isRequired,
+  urlImage: PropTypes.string.isRequired,
 };
 
-export default RecipeCard;
+export default ProductsCard;
