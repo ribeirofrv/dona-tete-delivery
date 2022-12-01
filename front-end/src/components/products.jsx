@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
 import ProductsCards from './productsCards';
 import NavBar from './NavBar';
+import CarTotalPrice from './carTotalPrice';
 
 function Products() {
   // const history = useHistory();
@@ -32,6 +33,7 @@ function Products() {
             ))
         }
       </div>
+      <CarTotalPrice />
     </div>
   );
 }
