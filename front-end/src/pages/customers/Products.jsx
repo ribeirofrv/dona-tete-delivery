@@ -1,20 +1,30 @@
 import React, { useEffect } from 'react';
+// import { useLocation, useNavigate } from 'react-router-dom';
 // import { PropTypes } from 'prop-types';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
-import ProductsCards from './productsCards';
-import NavBar from './NavBar';
-import CarTotalPrice from './carTotalPrice';
+import ProductsCards from '../../components/productsCards';
+import NavBar from '../../components/NavBar';
+import CarTotalPrice from '../../components/carTotalPrice';
 
 function Products() {
+  const [products, setProducts] = useState([]);
   // const history = useHistory();
   const maxCards = 11;
-  const dispatch = useDispatch();
-  const productsData = useSelector((state) => state.reducer.drinksData);
+  // const dispatch = useDispatch();
+  const productsData = useSelector((state) => state.reducer.products);
 
   useEffect(() => {
-    dispatch(getProductsToState(''));
-  }, []);
+    const endpoint = '/customers/products';
+
+    if (!products.length) {
+      requestData(endpoint)
+        .then((response) => {
+          setProducts(response);
+        })
+        .catch((error) => console.log(error));
+    }
+  });
   return (
     <div>
       <NavBar />
