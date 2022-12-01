@@ -6,11 +6,11 @@ const login = async (req, res, next) => {
   console.log('controller');
   const user = await userService.login(email, password);
   return res.status(200).json(user);
- } catch(error) {
+ } catch (error) {
     next(error);
  }
-}
+};
 
 module.exports = {
   login,
-}
+};

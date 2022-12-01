@@ -1,4 +1,4 @@
-const { sign } = require("jsonwebtoken");
+const { sign, verify } = require('jsonwebtoken');
 require('dotenv/config');
 
 const jwtConfig = {
@@ -23,4 +23,4 @@ const authenticate = (token) => {
 module.exports = {
   generateToken,
   authenticate,
-}
+};

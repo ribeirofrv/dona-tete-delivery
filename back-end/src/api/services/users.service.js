@@ -16,8 +16,8 @@ const login = async (email, bodyPassword) => {
   const token = generateToken({ email, id, role, name });
 
   return { token, email, role, name };
-}
+};
 
 module.exports = {
   login,
-}
+};
