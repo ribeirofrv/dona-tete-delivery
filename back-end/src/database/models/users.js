@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true, 
+      autoIncrement: true,
     },
     name: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -23,8 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Sale, {
       foreignKey: 'sellerId', as: 'sellerSales'
     });
-  }
-
+  };
 
   return User;
-}
+};
