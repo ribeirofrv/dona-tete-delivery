@@ -1,9 +1,10 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import Products from './pages/customers/Products';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Products from './pages/customers/Products';
+import Checkout from './pages/customers/Checkout';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       </Route>
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
-      <Route path="/customer/products" element={ <Products /> } />
+      <Route path="/customer/products" component={ Products } />
+      <Route path="/customer/checkout" component={ Checkout } />
     </Switch>
   );
 }
