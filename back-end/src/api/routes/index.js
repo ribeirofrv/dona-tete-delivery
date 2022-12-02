@@ -1,3 +1,4 @@
-const costumer = require('./costumer.routes');
+const custumer = require('./customer.routes');
+const login = require('./login.routes');
 
-module.exports = { costumer };
+module.exports = { login, custumer };
