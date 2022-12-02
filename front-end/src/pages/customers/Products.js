@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import ProductsCards from '../../components/productsCards';
 import NavBar from '../../components/NavBar';
 import CarTotalPrice from '../../components/carTotalPrice';
+import { requestData } from '../../API/requests';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -16,7 +17,6 @@ function Products() {
 
   useEffect(() => {
     const endpoint = '/customers/products';
-
     if (!products.length) {
       requestData(endpoint)
         .then((response) => {
@@ -25,6 +25,7 @@ function Products() {
         .catch((error) => console.log(error));
     }
   });
+
   return (
     <div>
       <NavBar />
