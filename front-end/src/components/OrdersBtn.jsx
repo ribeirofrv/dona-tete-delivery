@@ -1,14 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function OrdersBtn() {
+  const history = useHistory();
+
+  const redirectToOrders = () => {
+    history.push('/customer/products');
+  };
+
   return (
-    <Link
+    <button
+      type="submit"
       data-testid="customer_products__element-navbar-link-orders"
-      to="customer/orders"
+      onClick={ () => redirectToOrders() }
     >
       MEUS PEDIDOS
-    </Link>
+    </button>
   );
 }
 
