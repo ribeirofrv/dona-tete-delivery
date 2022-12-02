@@ -3,7 +3,7 @@ require('express-async-errors');
 const express = require('express');
 
 const routes = require('../api/routes/index');
-const errorHandle = require('../api/middlewares/errorHandler');
+const errorMiddleware = require('../api/middlewares/errorMiddleware');
 
 const app = express();
 
@@ -13,6 +13,6 @@ app.use(cors());
 app.use('/login', routes.login);
 app.use('/customer', routes.customer);
 
-app.use(errorHandle);
+app.use(errorMiddleware);
 
 module.exports = app;

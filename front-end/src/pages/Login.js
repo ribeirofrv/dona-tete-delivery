@@ -22,7 +22,7 @@ export default function Login({ history }) {
     const { role } = data;
     if (role === 'seller') history.push('/seller/orders');
     if (role === 'admin') history.push('/admin/manage');
-    history.push('/customer/products');
+    history.push('/customer/products/');
   };
 
   const handleLogin = async () => {

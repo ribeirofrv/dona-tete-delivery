@@ -1,8 +1,4 @@
-import React, { useEffect } from 'react';
-// import { useLocation, useNavigate } from 'react-router-dom';
-// import { PropTypes } from 'prop-types';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import ProductsCards from '../../components/productsCards';
 import NavBar from '../../components/NavBar';
 import CarTotalPrice from '../../components/carTotalPrice';
@@ -10,28 +6,23 @@ import { requestData } from '../../API/requests';
 
 function Products() {
   const [products, setProducts] = useState([]);
-  // const history = useHistory();
   const maxCards = 11;
-  // const dispatch = useDispatch();
-  const productsData = useSelector((state) => state.reducer.products);
+
+  const getProducts = async () => {
+    const data = await requestData();
+    setProducts(data);
+  };
 
   useEffect(() => {
-    const endpoint = '/customers/products';
-    if (!products.length) {
-      requestData(endpoint)
-        .then((response) => {
-          setProducts(response);
-        })
-        .catch((error) => console.log(error));
-    }
-  });
+    getProducts();
+  }, []);
 
   return (
     <div>
       <NavBar />
       <div>
         {
-          [...productsData]?.splice(0, maxCards)
+          [...products]?.splice(0, maxCards)
             .map((product, i) => (
               <ProductsCards
                 key={ product.id }
