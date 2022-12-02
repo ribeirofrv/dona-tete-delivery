@@ -6,7 +6,7 @@ const { generateToken } = require('../helpers/token');
 
 const login = async (email, bodyPassword) => {
   const user = await User.findOne({ where: { email } });
-  console.log("🚀 ~ file: users.service.js:9 ~ login ~ user", user)
+  console.log('🚀 ~ file: users.service.js:9 ~ login ~ user', user);
 
   if (!user || !checkPassword(bodyPassword, user.password)) {
     console.log('dentro do if');
