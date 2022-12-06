@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import ProductsCards from '../../components/productsCards';
+import ProductsCards from '../../components/ProductsCards';
 import NavBar from '../../components/NavBar';
-import CarTotalPrice from '../../components/carTotalPrice';
+import CarTotalPrice from '../../components/CarTotalPrice';
 import { requestData } from '../../API/requests';
 
 function Products() {
@@ -21,29 +21,20 @@ function Products() {
     <div>
       <NavBar />
       <div>
-        {
-          [...products]?.splice(0, maxCards)
-            .map((product, i) => (
-              <ProductsCards
-                key={ product.id }
-                idProduct={ product.id }
-                id={ i }
-                name={ product.name }
-                price={ product.price }
-                urlImage={ product.urlImage }
-              />
-            ))
-        }
+        {[...products]?.splice(0, maxCards).map((product, i) => (
+          <ProductsCards
+            key={ product.id }
+            idProduct={ product.id }
+            id={ i }
+            name={ product.name }
+            price={ product.price }
+            urlImage={ product.urlImage }
+          />
+        ))}
       </div>
       <CarTotalPrice />
     </div>
   );
 }
-
-/* Products.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.fuc,
-  }),
-}.isRequired */
 
 export default Products;
