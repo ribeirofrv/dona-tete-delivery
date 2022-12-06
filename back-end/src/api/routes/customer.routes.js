@@ -4,6 +4,6 @@ const { getAllProducts } = require('../controllers/customer.controller');
 
 const customerRoute = Router();
 
-customerRoute.get('/products', getAllProducts);
+customerRoute.get('/products', getAllProducts); // teste
 
 module.exports = customerRoute;
