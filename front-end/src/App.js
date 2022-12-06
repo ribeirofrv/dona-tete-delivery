@@ -6,7 +6,6 @@ import Register from './pages/Register';
 import Products from './pages/customers/Products';
 import Checkout from './pages/customers/Checkout';
 
-
 function App() {
   return (
     <Switch>
