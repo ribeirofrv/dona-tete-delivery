@@ -1,9 +1,9 @@
+const md5 = require('md5');
 const { checkPassword } = require('../helpers/bcrypt');
 const { User } = require('../../database/models');
 const errorGenerate = require('../helpers/errorGenerate');
 
 const { generateToken } = require('../helpers/token');
-const md5 = require('md5');
 
 const login = async (email, bodyPassword) => {
   const user = await User.findOne({ where: { email } });
@@ -24,7 +24,7 @@ const register = async (body) => {
   const userEmail = await User.findOne({ where: { email } });
   const userName = await User.findOne({ where: { name } });
 
-  if(userEmail || userName ) {
+  if (userEmail || userName) {
     throw errorGenerate(409, 'Conflict');
   }
 
@@ -33,7 +33,7 @@ const register = async (body) => {
   const newUser = await User.create({ email, password: newHash, name, role: 'customer' });
 
   const { id, role } = newUser;
-  const token = generateToken({id, role, name, email});
+  const token = generateToken({ id, role, name, email });
   return { token, email, role, name };
 };
 
