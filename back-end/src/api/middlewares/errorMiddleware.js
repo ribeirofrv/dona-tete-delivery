@@ -3,7 +3,7 @@ const errorMiddleware = (err, _req, res, _next) => {
 
   if (status) return res.status(status).json({ message });
 
-  return res.status(500).json({ message: 'Internal Server Error' });
+  return res.status(500).json({ message });
 };
 
 module.exports = errorMiddleware;
