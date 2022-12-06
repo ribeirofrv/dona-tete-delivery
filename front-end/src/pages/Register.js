@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
 
-export default function Register() {
+export default function Register({ history }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [error, setError] = useState(false);
 
   const validationInputs = () => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const bool = !(password.length >= +'6' && emailRegex
       .test(email) && name.length >= +'12');
     return bool;
+  };
+
+  const setLocalStorage = (data) => {
+    localStorage.setItem('user', JSON.stringify(data));
+    const { role } = data;
+    if (role === 'seller') history.push('/seller/orders');
+    if (role === 'administrator') history.push('/admin/manage');
+    history.push('/customer/products');
+  };
+
+  const handleRegister = async () => {
+    requestLogin('/register', { email, password, name })
+      .then((data) => setLocalStorage(data))
+      .catch(() => setError(true));
   };
 
   return (
@@ -48,13 +63,23 @@ export default function Register() {
         />
       </label>
       <button
-        // onClick={ () => handleClick() }
+        onClick={ () => handleRegister() }
         disabled={ validationInputs() }
         type="button"
         data-testid="common_register__button-register"
       >
         Cadastrar
       </button>
+      { error && (
+        <p data-testid="common_login__element-invalid-email">
+          Email e senha inválidos
+        </p>) }
     </section>
   );
 }
+
+Register.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
