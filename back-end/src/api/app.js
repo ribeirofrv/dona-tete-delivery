@@ -5,7 +5,6 @@ const errorMiddleware = require('./middlewares/errorMiddleware');
 const loginRouter = require('./routes/login.routes');
 
 const routes = require('./routes/index');
-const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
 app.use(express.json());
