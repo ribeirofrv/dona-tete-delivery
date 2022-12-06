@@ -1,6 +1,6 @@
 const userService = require('../services/users.service');
 
-const login = async (req, res, next) => {
+const register = async (req, res, next) => {
  try {
   const { body } = req;
   const user = await userService.register(body);
@@ -11,5 +11,5 @@ const login = async (req, res, next) => {
 };
 
 module.exports = {
-  login,
+  register,
 };

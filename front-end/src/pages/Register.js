@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { requestLogin } from '../API/requests';
 
 export default function Register({ history }) {
   const [email, setEmail] = useState('');
@@ -71,8 +73,8 @@ export default function Register({ history }) {
         Cadastrar
       </button>
       { error && (
-        <p data-testid="common_login__element-invalid-email">
-          Email e senha inválidos
+        <p data-testid="common_register__element-invalid_register">
+          O nome ou o email já existem
         </p>) }
     </section>
   );

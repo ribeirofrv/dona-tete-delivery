@@ -3,12 +3,10 @@ const { User } = require('../../database/models');
 const errorGenerate = require('../helpers/errorGenerate');
 
 const { generateToken } = require('../helpers/token');
-
-const findUser = async (data) => User.findOne({ where: { data } });
+const md5 = require('md5');
 
 const login = async (email, bodyPassword) => {
-  // const user = await User.findOne({ where: { email } });
-  const user = await findUser(email);
+  const user = await User.findOne({ where: { email } });
 
   if (!user || !checkPassword(bodyPassword, user.password)) {
     throw errorGenerate(404, 'Not found'); // criar o middleware de erro e erro
@@ -23,16 +21,19 @@ const login = async (email, bodyPassword) => {
 const register = async (body) => {
   const { email, password, name } = body;
 
-  const userEmail = await findUser(email);
-  const userName = await findUser(name);
+  const userEmail = await User.findOne({ where: { email } });
+  const userName = await User.findOne({ where: { name } });
 
   if(userEmail || userName ) {
     throw errorGenerate(409, 'Conflict');
   }
 
-  const newUser = await User.create({ email, password, name, role: 'customer' });
+  const newHash = md5(password);
 
-  const token = generateToken(newUser);
+  const newUser = await User.create({ email, password: newHash, name, role: 'customer' });
+
+  const { id, role } = newUser;
+  const token = generateToken({id, role, name, email});
   return { token, email, role, name };
 };
 
