@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Products from './pages/customers/Products';
 import Checkout from './pages/customers/Checkout';
 
+
 function App() {
   return (
     <Switch>
@@ -14,7 +15,7 @@ function App() {
       </Route>
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
-      <Route path="/customer/products/" component={ Products } />
+      <Route path="/customer/products" component={ Products } />
       <Route path="/customer/checkout" component={ Checkout } />
     </Switch>
   );
