@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ProductsCards from '../../components/ProductsCards';
 // import CarTotalPrice from '../../components/carTotalPrice';
 import { requestData } from '../../API/requests';
-import Header from '../../components/Header';
-import ProductBtn from '../../components/ProductBtn';
-import OrdersBtn from '../../components/OrdersBtn';
+import Header from '../../components/Header/Header';
+import ProductBtn from '../../components/Header/ProductBtn';
+import OrdersBtn from '../../components/Header/OrdersBtn';
 
 function Products() {
   const [products, setProducts] = useState([]);

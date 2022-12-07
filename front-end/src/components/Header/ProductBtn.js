@@ -1,20 +1,19 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function ProductBtn() {
-  const history = useHistory();
+  // const history = useHistory();
 
-  const redirectToProducts = () => {
-    history.push('/customer/products');
-  };
+  // const redirectToProducts = () => {
+  //   history.push();
+  // };
 
   return (
-    <button
-      type="submit"
+    <Link
       data-testid="customer_products__element-navbar-link-products"
-      onClick={ () => redirectToProducts() }
+      to="/customer/products"
     >
       PRODUTOS
-    </button>
+    </Link>
   );
 }

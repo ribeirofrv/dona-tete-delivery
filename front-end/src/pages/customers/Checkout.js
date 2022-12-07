@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import Header from '../../components/Header';
-import OrdersBtn from '../../components/OrdersBtn';
-import ProductBtn from '../../components/ProductBtn';
-import Table from '../../components/Table';
+import Header from '../../components/Header/Header';
+import OrdersBtn from '../../components/Header/OrdersBtn';
+import ProductBtn from '../../components/Header/ProductBtn';
+import Table from '../../components/Cart/Table';
 import CarTotalPrice from '../../components/CarTotalPrice';
 
 export default function Checkout() {

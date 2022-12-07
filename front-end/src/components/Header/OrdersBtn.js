@@ -1,21 +1,21 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function OrdersBtn() {
-  const history = useHistory();
+  // const history = useHistory();
 
-  const redirectToOrders = () => {
-    history.push('/customer/products');
-  };
+  // const redirectToOrders = () => {
+  //   history.push('/customer/products');
+  // };
 
   return (
-    <button
-      type="submit"
+    <Link
       data-testid="customer_products__element-navbar-link-orders"
-      onClick={ () => redirectToOrders() }
+      to="/customer/orders"
     >
       MEUS PEDIDOS
-    </button>
+    </Link>
   );
 }
 
