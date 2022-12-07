@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ProductsCard({ id, name, price, urlImage }) {
+function ProductsCard({ name, price, urlImage, id }) {
   return (
     <div data-testid={ `customer_products__element-card-${id}` }>
       <figure>

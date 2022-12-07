@@ -7,7 +7,6 @@ import FullName from './FullName';
 export default function Header({
   FirstNavigationLink,
   SecondNavegationLink,
-  username,
 }) {
   return (
     <header className="common-header">
@@ -15,7 +14,7 @@ export default function Header({
       <nav className="buttons-content">
         <FirstNavigationLink />
         <SecondNavegationLink />
-        <FullName username={ username } />
+        <FullName />
         <LogoutBtn />
       </nav>
     </header>
@@ -25,7 +24,6 @@ export default function Header({
 Header.propTypes = {
   FirstNavigationLink: PropTypes.elementType.isRequired,
   SecondNavegationLink: PropTypes.elementType,
-  username: PropTypes.string.isRequired,
 };
 
 Header.defaultProps = {

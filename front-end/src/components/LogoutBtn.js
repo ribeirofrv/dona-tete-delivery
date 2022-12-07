@@ -5,7 +5,7 @@ function LogoutBtn() {
   return (
     <Link
       data-testid="customer_products__element-navbar-link-logout"
-      to="login"
+      to="/login"
     >
       LOGOUT
     </Link>

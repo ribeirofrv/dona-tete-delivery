@@ -6,12 +6,12 @@ import LogoutBtn from './LogoutBtn';
 
 function NavBar() {
   return (
-    <NavBar>
+    <Header>
       <ProductBtn />
       <OrdersBtn />
       <FullName />
       <LogoutBtn />
-    </NavBar>
+    </Header>
   );
 }
 

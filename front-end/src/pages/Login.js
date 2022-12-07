@@ -27,7 +27,10 @@ export default function Login({ history }) {
 
   const handleLogin = async () => {
     requestLogin('/login', { email, password })
-      .then((data) => setLocalStorage(data))
+      .then((data) => {
+        console.log('login', data);
+        setLocalStorage(data);
+      })
       .catch(() => setError(true));
   };
 
