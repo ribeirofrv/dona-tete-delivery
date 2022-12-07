@@ -1,10 +1,11 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/customers/Products';
 import Checkout from './pages/customers/Checkout';
+
+
 
 function App() {
   return (
