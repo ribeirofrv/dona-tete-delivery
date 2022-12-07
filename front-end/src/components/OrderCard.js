@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function OrderCard({ testId, orders }) {
   return (
     <main>
       {
         orders.map((order) => (
-          <div key={ order.deliveryNumber }>
+          <Link to={ `/seller/orders/${order.id}` } key={ order.deliveryNumber }>
             <h1
               data-testid={ `${testId}_orders__element-order-id-${order.id}` }
             >
@@ -29,12 +30,13 @@ export default function OrderCard({ testId, orders }) {
                 { order.totalPrice }
               </h3>
             </div>
-            <h2
-              data-testid={ `${testId}_orders__element-card-price-${order.id}` }
-            >
-              { order.deliveryAddress }
-            </h2>
-          </div>
+            {testId === 'seller' && (
+              <h2
+                data-testid={ `${testId}_orders__element-card-address-${order.id}` }
+              >
+                { order.deliveryAddress }
+              </h2>)}
+          </Link>
         ))
       }
     </main>
