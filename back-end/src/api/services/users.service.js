@@ -7,7 +7,6 @@ const { generateToken } = require('../helpers/token');
 
 const login = async (email, bodyPassword) => {
   const user = await User.findOne({ where: { email } });
-
   if (!user || !checkPassword(bodyPassword, user.password)) {
     throw errorGenerate(404, 'Not found'); // criar o middleware de erro e erro
   }
