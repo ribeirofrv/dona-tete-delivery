@@ -18,8 +18,7 @@ export const setToken = (token) => {
 };
 
 export const requestData = async (endpoint) => {
-
-/* const { data } = await api.get(endpoint, getHeaders());
+  /* const { data } = await api.get(endpoint, getHeaders());
   console.log('🚀 ~ file: requests.js:21 ~ requestData ~ data', data);
 */
   const { data } = await api.get(endpoint);
