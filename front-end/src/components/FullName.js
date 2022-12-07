@@ -1,17 +1,23 @@
 // import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 function FullName() {
-  const userName = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log('🚀 ~ file: FullName.js:7 ~ userName ~ user', user);
-    return user;
+  const [user, setUser] = useState('');
+
+  const getName = () => {
+    const userName = JSON.parse(localStorage.getItem('name'));
+    console.log('🚀 ~ file: FullName.js:7 ~ userName ~ user', userName);
+    setUser(userName);
   };
+  useEffect(() => {
+    getName();
+  });
+
   return (
     <div
       data-testid="customer_products__element-navbar-user-full-name"
     >
-      {userName}
+      {user}
     </div>
   );
 }

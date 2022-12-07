@@ -21,7 +21,7 @@ export default function Login({ history }) {
     localStorage.setItem('user', JSON.stringify(data));
     const { role } = data;
     if (role === 'seller') history.push('/seller/orders');
-    if (role === 'admin') history.push('/admin/manage');
+    if (role === 'administrator') history.push('/admin/manage');
     history.push('/customer/products');
   };
 
