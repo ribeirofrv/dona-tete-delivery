@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { requestData, setToken } from '../../API/requests';
+import Header from '../../components/Header';
 import OrderCard from '../../components/OrderCard';
+import ProductBtn from '../../components/ProductBtn';
 
 export default function Seller() {
   const [orders, setOrders] = useState([]);
@@ -17,6 +19,12 @@ export default function Seller() {
   }, []);
 
   return (
-    <OrderCard testId="seller" orders={ orders } />
+    <section>
+      <Header
+        FirstNavigationLink={ ProductBtn }
+        SecondNavegationLink={ null }
+      />
+      <OrderCard testId="seller" orders={ orders } />
+    </section>
   );
 }
