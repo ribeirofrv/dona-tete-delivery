@@ -20,9 +20,11 @@ export default function Login({ history }) {
   const setLocalStorage = (data) => {
     localStorage.setItem('user', JSON.stringify(data));
     const { role } = data;
-    if (role === 'seller') history.push('/seller/orders');
-    if (role === 'administrator') history.push('/admin/manage');
-    history.push('/customer/products');
+    console.log(role);
+    history.push('/');
+    // if (role === 'seller') history.push('/seller/orders');
+    // if (role === 'administrator') history.push('/admin/manage');
+    // if (role === 'customer') history.push('/customer/products');
   };
 
   const handleLogin = async () => {

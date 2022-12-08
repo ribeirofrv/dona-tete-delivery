@@ -5,9 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true, 
       autoIncrement: true,
     },
-    userId: DataTypes.STRING,
-    sellerId: DataTypes.STRING,
+    userId: DataTypes.INTEGER,
+    sellerId: DataTypes.INTEGER,
     totalPrice: DataTypes.DECIMAL,
+    deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
     saleDate: DataTypes.DATE,
     status: DataTypes.STRING,
@@ -20,12 +21,15 @@ module.exports = (sequelize, DataTypes) => {
 
   Sale.associate = (models) => {
     Sale.belongsTo(models.User, {
-      foreignKey: 'userId', as: 'user'
+      foreignKey: 'userId',
+      as: 'user',
     });
     Sale.belongsTo(models.User, {
-      foreignKey: 'sellerId', as: 'seller'
+      foreignKey: 'sellerId',
+      as: 'seller',
     });
   }
 
   return Sale;
 }
+//
