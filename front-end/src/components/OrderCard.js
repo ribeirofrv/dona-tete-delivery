@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 export default function OrderCard({ testId, orders }) {
   return (
@@ -22,7 +23,7 @@ export default function OrderCard({ testId, orders }) {
               <h3
                 data-testid={ `${testId}_orders__element-order-date-${order.id}` }
               >
-                { order.saleDate }
+                { moment(order.saleDate).format('DD/MM/YYYY') }
               </h3>
               <h3
                 data-testid={ `${testId}_orders__element-card-price-${order.id}` }
