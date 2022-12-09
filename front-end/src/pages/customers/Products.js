@@ -12,7 +12,6 @@ function Products() {
 
   const getProducts = async () => {
     const data = await requestData('/customer/products');
-    console.log('🚀 ~ file: Products.js:13 ~ getProducts ~ data', data);
     setProducts(data);
   };
 

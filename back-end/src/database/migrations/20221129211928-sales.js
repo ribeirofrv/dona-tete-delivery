@@ -9,8 +9,9 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,        
        },
-       user_id: {
+       userId: {
         field: 'user_id',
+        foreignKey: true,
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -18,7 +19,9 @@ module.exports = {
           key: 'id',
         } 
        },
-       seller_id: {
+       sellerId: {
+        field: 'seller_id',
+        foreignKey: true,
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -26,19 +29,23 @@ module.exports = {
           key: 'id',
         } 
        },
-       total_price: {
+       totalPrice: {
+        field: 'total_price',
         type: Sequelize.DECIMAL(9,2),
         allowNull: false,
        },
-       delivery_address: {
+       deliveryAddress: {
+        field: 'delivery_address',
         type: Sequelize.STRING(100),
         allowNull: false,
        },
-       delivery_number: {
+       deliveryNumber: {
+        field: 'delivery_number',
         type: Sequelize.STRING(50),
         allowNull: false,
        },
-       sale_date: {
+       saleDate: {
+        field: 'sale_date',
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: new Date(),
