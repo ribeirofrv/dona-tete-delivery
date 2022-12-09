@@ -1,20 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect/* , useContext */ } from 'react';
 import { useHistory } from 'react-router-dom';
+// import storage from '../context/context';
 
 function CarTotalPrice() {
   const history = useHistory();
-  const { cart } = useContext(storage);
   const [total, setTotal] = useState('0,00');
+  const { cart, setCart } = useState([]);
+  console.log('🚀 ~ file: CarTotalPrice.js:9 ~ CarTotalPrice ~ cart', cart);
 
   const redirectToCheckout = () => {
     history.push('/customer/checkout');
   };
 
   useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem('cart')));
     if (cart.length > 0) {
       const totalValue = cart
         .reduce((acc, crr) => acc + Number(crr.subTotal.replace(/,/, '.')), 0);
       setTotal(totalValue.toFixed(2));
+      console.log('🚀 ~ file: CarTotalPrice.js:21 ~ useEffect ~ total', total);
     }
   }, [cart]);
 

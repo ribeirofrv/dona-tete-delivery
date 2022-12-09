@@ -6,7 +6,6 @@ function FullName() {
 
   const getName = () => {
     const userName = JSON.parse(localStorage.getItem('user')).name;
-    console.log('🚀 ~ file: FullName.js:7 ~ userName ~ user', userName);
     setFullName(userName);
   };
   useEffect(() => {

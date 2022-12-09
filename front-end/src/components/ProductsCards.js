@@ -1,11 +1,50 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState/* , useContext */ } from 'react';
 import PropTypes from 'prop-types';
-import storage from '../context/context';
+/* import storage from '../context/context'; */
 
 function ProductsCard({ name, price, urlImage, id }) {
   const [unity, setUnity] = useState(0);
-  const [product, setProduct] = useState({});
-  const { newItem, cart } = useContext(storage);
+  const [product, setProduct] = useState({});/*
+  const { cart, setCarItems } = useContext(storage); */
+
+  const getCartItem = () => {
+    const cartItens = JSON.parse(localStorage.getItem('cart'));
+    return cartItens;
+  };
+
+  const saveCartItem = (item) => {
+    localStorage.setItem('cart', JSON.stringify(item));
+  };
+
+  const newItem = (item) => {
+    const getCartProducts = getCartItem();
+    if (!getCartProducts) {
+      console.log('1');
+      saveCartItem([item]); // localSotrage.setItem
+    } else {
+      const newCartItems = getCartProducts
+        .find((itemArr) => itemArr.productId === item.productId);
+      if (newCartItems) {
+        const obj = getCartProducts
+          .filter(({ productId }) => productId === item.productId);
+        newCartItems.quantity = item.quantity;
+        newCartItems.subTotal = item.subTotal;
+        obj.push(newCartItems);
+        console.log('2');
+        saveCartItem(obj);
+      } else {
+        getCartProducts.push(item);
+        console.log('3');
+        saveCartItem(getCartProducts);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (product.productId) {
+      newItem(product);
+    }
+  }, [product]);
 
   const addInCart = () => {
     setUnity(unity + 1);
@@ -30,17 +69,6 @@ function ProductsCard({ name, price, urlImage, id }) {
       });
     }
   };
-
-  /* useEffect(() => {
-    const productFind = cart.find((({ productId }) => productId === id));
-    if (productFind) setUnity(productFind.quantity);
-  }, []); */
-
-  useEffect(() => {
-    if (product.productId) {
-      newItem(product);
-    }
-  }, [product]);
 
   const handleChange = ({ target }) => {
     const convertValue = Number(target.value);
@@ -99,7 +127,7 @@ function ProductsCard({ name, price, urlImage, id }) {
 ProductsCard.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   urlImage: PropTypes.string.isRequired,
 };
 
