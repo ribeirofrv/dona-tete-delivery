@@ -1,7 +1,7 @@
 const cors = require('cors');
 require('express-async-errors');
 const express = require('express');
-
+const errorMiddleware = require('./middlewares/error.middleware');
 const routes = require('./routes/index');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
