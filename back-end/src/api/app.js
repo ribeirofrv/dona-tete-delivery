@@ -11,6 +11,7 @@ app.use(cors());
 app.use('/login', routes.login);
 app.use('/register', routes.register);
 app.use('/customer', routes.customer);
+app.use('/seller', routes.seller);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
