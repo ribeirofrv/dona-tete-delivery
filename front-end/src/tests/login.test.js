@@ -1,19 +1,20 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // import axios from 'axios';
 import renderWithRouter from '../helper/renderWithRouter';
 import App from '../App';
-
-jest.mock('axios');
+import { customer } from './mocks/login.mock';
 
 describe('Testa Fluxo Login', () => {
-  const validEmail = 'zebirita@email.com';
+  const validEmail = customer[0].email;
+  const validPassword = customer[0].password;
   const emailTestId = 'common_login__input-email';
   const passwordTestId = 'common_login__input-password';
   const loginButton = 'common_login__button-login';
+  // const invalidEmail = 'common_login__element-invalid-email';
 
-  it('Verifica funcionalidade do login', async () => {
+  it('Verifica funcionalidade do login e redirecionamento', async () => {
     const { history } = renderWithRouter(<App />);
 
     const inputEmail = screen.getByTestId(emailTestId);
@@ -26,18 +27,24 @@ describe('Testa Fluxo Login', () => {
 
     expect(button).toBeDisabled();
 
-    userEvent.type(inputEmail, 'teste.com');
-    userEvent.type(inputPassword, '12345');
+    userEvent.type(inputEmail, 'zebirita@email.com');
+    userEvent.type(inputPassword, '$#zeb');
 
     expect(button).toBeDisabled();
 
-    userEvent.type(inputEmail, validEmail);
-    userEvent.type(inputPassword, '123456');
+    userEvent.clear(inputEmail);
+    userEvent.clear(inputPassword);
 
+    userEvent.type(inputEmail, validEmail);
+    userEvent.type(inputPassword, validPassword);
+
+    console.log('InputPassword', inputPassword.value);
     expect(button).not.toBeDisabled();
 
     userEvent.click(button);
 
-    expect(history.location.pathname).toBe('/login');
+    await waitFor(
+      () => expect(history.location.pathname).toBe('/customer/products'),
+    );
   });
 });
