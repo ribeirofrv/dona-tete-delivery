@@ -13,7 +13,7 @@ export default function Header({
       <h1>Tetê</h1>
       <nav className="buttons-content">
         <FirstNavigationLink />
-        <SecondNavegationLink />
+        { SecondNavegationLink ? <SecondNavegationLink /> : <div />}
         <FullName />
         <LogoutBtn />
       </nav>
