@@ -10,4 +10,15 @@ const getSalesBySellerId = async (request, response, next) => {
   }
 };
 
-module.exports = { getSalesBySellerId };
+const getSaleById = async (request, response, next) => {
+  try {
+    const { id } = request.params;
+    console.log('controller', id);
+    const sale = await service.findSaleById(id);
+    return response.status(200).json(sale);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getSalesBySellerId, getSaleById };

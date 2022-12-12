@@ -18,16 +18,16 @@ export default function SellerDetailsTable({ data }) {
           <tr key={ index }>
             <td data-testid={ `${dataTestIds[59]}${index}` }>{index + 1}</td>
             <td data-testid={ `${dataTestIds[60]}${index}` }>
-              {product.description}
+              {product.name}
             </td>
             <td data-testid={ `${dataTestIds[61]}${index}` }>
-              {product.quantity}
+              {product.SalesProducts.quantity}
             </td>
             <td data-testid={ `${dataTestIds[62]}${index}` }>
-              {product.unitPrice}
+              {product.price}
             </td>
             <td data-testid={ `${dataTestIds[63]}${index}` }>
-              {product.price * product.quantity}
+              {product.price * product.SalesProducts.quantity}
             </td>
           </tr>
         ))}

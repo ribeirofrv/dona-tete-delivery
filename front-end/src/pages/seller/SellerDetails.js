@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import ProductBtn from '../../components/ProductBtn';
 import dataTestIds from '../../components/utils/dataTestIds';
 import SellerDetailsTable from '../../components/SellerDetailsTable';
+import { requestData } from '../../API/requests';
 
 export default function SellerDetails({ match: { params: { id } } }) {
   const [sale, setSale] = useState({ products: [] });
@@ -23,10 +24,10 @@ export default function SellerDetails({ match: { params: { id } } }) {
         FirstNavigationLink={ ProductBtn }
         SecondNavegationLink={ null }
       />
-      SellerDetails:
+      {/* SellerDetails:
       {' '}
       {id}
-      {' '}
+      {' '} */}
       <div>
         <p
           data-testid={ `${dataTestIds[54]}${sale.id}` }
