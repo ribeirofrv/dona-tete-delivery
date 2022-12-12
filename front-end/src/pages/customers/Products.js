@@ -8,12 +8,16 @@ import OrdersBtn from '../../components/Header/OrdersBtn';
 
 function Products() {
   const [products, setProducts] = useState([]);
-  // const maxCards = 11;
 
   const getProducts = async () => {
     const data = await requestData('/customer/products');
     setProducts(data);
   };
+
+  // const total = cart.reduce(
+  //   (accumulator, current) => accumulator + current.quantity * current.unitPrice,
+  //   0,
+  // );
 
   useEffect(() => {
     getProducts();
@@ -24,6 +28,7 @@ function Products() {
       <Header
         FirstNavigationLink={ ProductBtn }
         SecondNavegationLink={ OrdersBtn }
+        userDataTestId="customer_products__element-navbar-user-full-name"
       />
       <div>
         {
