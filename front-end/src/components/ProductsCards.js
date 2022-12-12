@@ -1,50 +1,15 @@
-import React, { useEffect, useState/* , useContext */ } from 'react';
+import React, { useState /* useEffect */ } from 'react';
 import PropTypes from 'prop-types';
-/* import storage from '../context/context'; */
 
 function ProductsCard({ name, price, urlImage, id }) {
   const [unity, setUnity] = useState(0);
-  const [product, setProduct] = useState({});/*
-  const { cart, setCarItems } = useContext(storage); */
+  // const [product, setProduct] = useState({});
 
-  const getCartItem = () => {
-    const cartItens = JSON.parse(localStorage.getItem('cart'));
-    return cartItens;
-  };
-
-  const saveCartItem = (item) => {
-    localStorage.setItem('cart', JSON.stringify(item));
-  };
-
-  const newItem = (item) => {
-    const getCartProducts = getCartItem();
-    if (!getCartProducts) {
-      console.log('1');
-      saveCartItem([item]); // localSotrage.setItem
-    } else {
-      const newCartItems = getCartProducts
-        .find((itemArr) => itemArr.productId === item.productId);
-      if (newCartItems) {
-        const obj = getCartProducts
-          .filter(({ productId }) => productId === item.productId);
-        newCartItems.quantity = item.quantity;
-        newCartItems.subTotal = item.subTotal;
-        obj.push(newCartItems);
-        console.log('2');
-        saveCartItem(obj);
-      } else {
-        getCartProducts.push(item);
-        console.log('3');
-        saveCartItem(getCartProducts);
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (product.productId) {
-      newItem(product);
-    }
-  }, [product]);
+  // useEffect(() => {
+  //   const storage = JSON.parse(localStorage.getItem('carrinho')) || [];
+  //   const foundProduct = storage.find((item) => item.productId === id);
+  //   if (foundProduct) setQtyValue(foundProduct.quantity);
+  // }, [id]);
 
   const addInCart = () => {
     setUnity(unity + 1);
@@ -53,7 +18,9 @@ function ProductsCard({ name, price, urlImage, id }) {
       productId: id,
       quantity: unity + 1,
       unitPrice: price.replace(/\./, ','),
-      subTotal: parseFloat(price * (unity + 1)).toFixed(2).replace(/\./, ','),
+      subTotal: parseFloat(price * (unity + 1))
+        .toFixed(2)
+        .replace(/\./, ','),
     });
   };
 
@@ -70,52 +37,65 @@ function ProductsCard({ name, price, urlImage, id }) {
     }
   };
 
-  const handleChange = ({ target }) => {
-    const convertValue = Number(target.value);
+  // const handleChange = ({ target }) => {
+  //   const convertValue = Number(target.value);
 
-    if (Number.isNaN(convertValue)) {
-      target.value = unity;
-    } else {
-      setProduct({
-        name,
-        productId: id,
-        quantity: convertValue,
-        unitPrice: price,
-        subTotal: parseFloat(price * convertValue).toFixed(2),
-      });
-      setUnity(Number(target.value));
-    }
-  };
+  //   if (Number.isNaN(convertValue)) target.value = unity;
+
+  //   setProduct({
+  //     name,
+  //     productId: id,
+  //     quantity: convertValue,
+  //     unitPrice: price,
+  //     subTotal: parseFloat(price * convertValue).toFixed(2),
+  //   });
+  //   setUnity(Number(target.value));
+  // };
+
   return (
     <div data-testid={ `customer_products__element-card-${id}` }>
-      <img
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ urlImage }
-        alt={ name }
-      />
+      <figure>
+        <img
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          src={ urlImage }
+          alt={ `${name}: R$${price}` }
+        />
+      </figure>
       <div>
-        <h2 data-testid={ `customer_products__element-card-title-${id}` }>{name}</h2>
-        <h2 data-testid={ `customer_products__element-card-price-${id}` }>{price.replace(/\./, ',')}</h2>
+        <h2 data-testid={ `customer_products__element-card-title-${id}` }>
+          {name}
+        </h2>
+        <h2 data-testid={ `customer_products__element-card-price-${id}` }>
+          {price.replace(/\./, ',')}
+        </h2>
       </div>
       <div className="counter">
         <button
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
-          onClick={ removeInCart }
           type="button"
+          name={ `button-card-rm-item-${id}` }
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          onClick={ () => {
+            setUnity(unity - 1);
+            removeInCart();
+          } }
         >
           -
         </button>
         <input
-          data-testid={ `customer_products__input-card-quantity-${id}` }
           type="text"
+          data-testid={ `customer_products__input-card-quantity-${id}` }
           name="number"
           value={ unity }
-          onChange={ handleChange }
+          onChange={ (e) => handleChange(e) }
         />
         <button
           type="button"
+          name={ `button-card-add-item-${id}` }
           data-testid={ `customer_products__button-card-add-item-${id}` }
-          onClick={ addInCart }
+          onClick={ () => {
+            setUnity(unity + 1);
+            addInCart();
+          } }
         >
           +
         </button>
@@ -125,10 +105,16 @@ function ProductsCard({ name, price, urlImage, id }) {
 }
 
 ProductsCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  urlImage: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  price: PropTypes.string,
+  urlImage: PropTypes.string,
+  cart: PropTypes.arrayOf(PropTypes.object),
+  // setCart: PropTypes.func,
+}.isRequired;
+
+ProductsCard.defaultProps = {
+  urlImage: '',
 };
 
 export default ProductsCard;

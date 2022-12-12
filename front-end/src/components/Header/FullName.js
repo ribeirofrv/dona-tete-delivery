@@ -1,7 +1,7 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-function FullName() {
+function FullName({ dataTestId }) {
   const [fullName, setFullName] = useState([]);
 
   const getName = () => {
@@ -12,13 +12,11 @@ function FullName() {
     getName();
   }, []);
 
-  return (
-    <div
-      data-testid="customer_products__element-navbar-user-full-name"
-    >
-      {fullName}
-    </div>
-  );
+  return <div data-testid={ dataTestId }>{fullName}</div>;
 }
+
+FullName.propTypes = {
+  dataTestId: PropTypes.string.isRequired,
+};
 
 export default FullName;
