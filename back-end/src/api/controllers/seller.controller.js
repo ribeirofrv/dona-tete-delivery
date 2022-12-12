@@ -13,7 +13,6 @@ const getSalesBySellerId = async (request, response, next) => {
 const getSaleById = async (request, response, next) => {
   try {
     const { id } = request.params;
-    console.log('controller', id);
     const sale = await service.findSaleById(id);
     return response.status(200).json(sale);
   } catch (error) {
@@ -21,4 +20,16 @@ const getSaleById = async (request, response, next) => {
   }
 };
 
-module.exports = { getSalesBySellerId, getSaleById };
+const updateSaleStatus = async (request, response, next) => {
+  try {
+    const { body } = request;
+    const { id } = request.params;
+    console.log('controller', body);
+    await service.updateSaleStatus(id, body);
+    return response.status(200).json(body.status);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getSalesBySellerId, getSaleById, updateSaleStatus };
