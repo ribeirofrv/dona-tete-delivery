@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductsCards from '../../components/ProductsCards';
-// import CarTotalPrice from '../../components/carTotalPrice';
+import CarTotalPrice from '../../components/CarTotalPrice';
 import { requestData } from '../../API/requests';
 import Header from '../../components/Header/Header';
 import ProductBtn from '../../components/Header/ProductBtn';
@@ -38,7 +38,7 @@ function Products() {
           ))
         }
       </div>
-      {/* <CarTotalPrice /> */}
+      <CarTotalPrice />
     </div>
   );
 }

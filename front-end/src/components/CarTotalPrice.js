@@ -1,26 +1,25 @@
-import React, { useEffect/* , useContext */ } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-// import storage from '../context/context';
+// import Provider from '../context/provider';
 
 function CarTotalPrice() {
   const history = useHistory();
-  const [total, setTotal] = useState('0,00');
-  const { cart, setCart } = useState([]);
-  console.log('🚀 ~ file: CarTotalPrice.js:9 ~ CarTotalPrice ~ cart', cart);
+  /* const [total, setTotal] = useState('0,00');
+  const [cart, setCart] = useState([]); */
+  // const { cart, total } = useContext(Provider);
 
   const redirectToCheckout = () => {
     history.push('/customer/checkout');
   };
 
+  const getCartItem = () => {
+    const cartItens = JSON.parse(localStorage.getItem('total'));
+    return cartItens;
+  };
+
   useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem('cart')));
-    if (cart.length > 0) {
-      const totalValue = cart
-        .reduce((acc, crr) => acc + Number(crr.subTotal.replace(/,/, '.')), 0);
-      setTotal(totalValue.toFixed(2));
-      console.log('🚀 ~ file: CarTotalPrice.js:21 ~ useEffect ~ total', total);
-    }
-  }, [cart]);
+    getCartItem();
+  }, []);
 
   return (
     <button
@@ -28,10 +27,10 @@ function CarTotalPrice() {
       data-testid="customer_products__button-cart"
       className="cart-btn"
       onClick={ () => redirectToCheckout() }
-      disabled={ total === '0,00' || total === '0.00' ? 1 : 0 }
+      /* disabled={ total === '0,00' || total === '0.00' ? 1 : 0 } */
     >
       <span data-testid="customer_products__checkout-bottom-value">
-        { ` R$ ${cart ? total.replace(/\./, ',') : 0}` }
+        { ` R$ ${getCartItem() ? getCartItem() : 0}` }
       </span>
     </button>
   );

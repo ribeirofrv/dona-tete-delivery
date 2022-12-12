@@ -1,11 +1,10 @@
-import React, { useEffect, useState/* , useContext */ } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-/* import storage from '../context/context'; */
 
 function ProductsCard({ name, price, urlImage, id }) {
   const [unity, setUnity] = useState(0);
-  const [product, setProduct] = useState({});/*
-  const { cart, setCarItems } = useContext(storage); */
+  const [product, setProduct] = useState({});
+  // const [cart, setCart] = useState([]);
 
   const getCartItem = () => {
     const cartItens = JSON.parse(localStorage.getItem('cart'));
@@ -21,7 +20,6 @@ function ProductsCard({ name, price, urlImage, id }) {
     const itemAlreadySave = getCartProducts
       .find((productItem) => productItem.productId === item.productId);
     if (getCartProducts.length === 0) {
-      console.log('1');
       return saveCartItem([item]); // localSotrage.setItem
     }
 
@@ -32,11 +30,9 @@ function ProductsCard({ name, price, urlImage, id }) {
           arrayItem.subTotal = item.subTotal;
         }
       });
-      console.log('2');
       saveCartItem(getCartProducts);
     } else {
       getCartProducts.push(item);
-      console.log('3');
       saveCartItem(getCartProducts);
     }
   };
@@ -44,8 +40,27 @@ function ProductsCard({ name, price, urlImage, id }) {
   useEffect(() => {
     if (product.productId) {
       newItem(product);
+      const cart = getCartItem();
+      const totalValue = cart.reduce((acc, crr) => acc + Number(crr.subTotal.replace(/,/, '.'), 0), 0);
+      localStorage.setItem('total', JSON.stringify(totalValue.toFixed(2)));
+    }
+    if (getCartItem()) {
+      const cart = getCartItem();
+      const totalValue = cart.reduce((acc, crr) => acc + Number(crr.subTotal.replace(/,/, '.'), 0), 0);
+      localStorage.setItem('total', JSON.stringify(totalValue.toFixed(2)));
     }
   }, [product]);
+
+  /* useEffect(() => {
+    if (localStorage.getItem('cart')) {
+      setCart(getCartItem());
+    }
+
+    if (cart.length > 0) {
+      console.log('cart', cart);
+
+    }
+  }, [product]); */
 
   const addInCart = () => {
     setUnity(unity + 1);
