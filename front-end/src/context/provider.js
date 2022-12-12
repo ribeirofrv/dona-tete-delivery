@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import storage from './context';
 
@@ -11,17 +11,38 @@ function Provider({ children }) {
     return cartItens;
   };
 
-  useEffect(() => {
-    setCart(getCartItem() || []);
-    if (cart.length > 0) {
-      const totalValue = cart
-        .reduce((acc, crr) => acc + Number(crr.subTotal.replace(/,/, '.')), 0);
-      setTotal(totalValue.toFixed(2));
+  const saveCartItem = (item) => {
+    localStorage.setItem('cart', JSON.stringify(item));
+  };
+
+  const newItem = (item) => {
+    const getCartProducts = getCartItem() || [];
+    const itemAlreadySave = getCartProducts.find(
+      (productItem) => productItem.productId === item.productId,
+    );
+    if (getCartProducts.length === 0) {
+      setCart([item]);
+      return saveCartItem([item]);
     }
-  }, [total, cart]);
+
+    if (itemAlreadySave) {
+      getCartProducts.forEach((arrayItem) => {
+        if (arrayItem.productId === item.productId) {
+          arrayItem.quantity = item.quantity;
+          arrayItem.subTotal = item.subTotal;
+        }
+      });
+      setCart(getCartProducts);
+      saveCartItem(getCartProducts);
+    } else {
+      getCartProducts.push(item);
+      setCart(getCartProducts);
+      saveCartItem(getCartProducts);
+    }
+  };
 
   const context = useMemo(() => (
-    { total }), [total]);
+    { cart, newItem, setTotal, total }), [cart, newItem, setTotal, total]);
 
   return (
     <storage.Provider

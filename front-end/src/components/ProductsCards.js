@@ -1,13 +1,13 @@
-import React, { useEffect, useState/* , useContext */ } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-// import storage from '../context/context';
+import storage from '../context/context';
 
 function ProductsCard({ name, price, urlImage, id }) {
   const [unity, setUnity] = useState(0);
   const [product, setProduct] = useState({});
-  // const { setTotal } = useContext(storage);
+  const { newItem } = useContext(storage);
 
-  const getCartItem = () => {
+  /* const getCartItem = () => {
     const cartItens = JSON.parse(localStorage.getItem('cart'));
     return cartItens;
   };
@@ -18,8 +18,9 @@ function ProductsCard({ name, price, urlImage, id }) {
 
   const newItem = (item) => {
     const getCartProducts = getCartItem() || [];
-    const itemAlreadySave = getCartProducts
-      .find((productItem) => productItem.productId === item.productId);
+    const itemAlreadySave = getCartProducts.find(
+      (productItem) => productItem.productId === item.productId,
+    );
     if (getCartProducts.length === 0) {
       return saveCartItem([item]);
     }
@@ -36,20 +37,20 @@ function ProductsCard({ name, price, urlImage, id }) {
       getCartProducts.push(item);
       saveCartItem(getCartProducts);
     }
-  };
+  }; */
 
   useEffect(() => {
     if (product.productId) {
       newItem(product);
       /* const cart = getCartItem();
-      const totalValue = cart.reduce((acc, crr) => acc + Number(crr.subTotal.replace(/,/, '.'), 0), 0);
-      setTotal(totalValue.toFixed(2)); */
+        const totalValue = cart.reduce((acc, crr) => acc + Number(crr.subTotal.replace(/,/, '.'), 0), 0);
+        setTotal(totalValue.toFixed(2)); */
     }
     /* if (getCartItem()) {
-      const cart = getCartItem();
-      const totalValue = cart.reduce((acc, crr) => acc + Number(crr.subTotal.replace(/,/, '.'), 0), 0);
-      setTotal(totalValue.toFixed(2));
-    } */
+        const cart = getCartItem();
+        const totalValue = cart.reduce((acc, crr) => acc + Number(crr.subTotal.replace(/,/, '.'), 0), 0);
+        setTotal(totalValue.toFixed(2));
+      } */
   }, [product]);
 
   const addInCart = () => {
@@ -78,20 +79,20 @@ function ProductsCard({ name, price, urlImage, id }) {
     }
   };
 
-  // const handleChange = ({ target }) => {
-  //   const convertValue = Number(target.value);
+  const handleChange = ({ target }) => {
+    const convertValue = Number(target.value);
 
-  //   if (Number.isNaN(convertValue)) target.value = unity;
+    if (Number.isNaN(convertValue)) target.value = unity;
 
-  //   setProduct({
-  //     name,
-  //     productId: id,
-  //     quantity: convertValue,
-  //     unitPrice: price,
-  //     subTotal: parseFloat(price * convertValue).toFixed(2),
-  //   });
-  //   setUnity(Number(target.value));
-  // };
+    setProduct({
+      name,
+      productId: id,
+      quantity: convertValue,
+      unitPrice: price,
+      subTotal: parseFloat(price * convertValue).toFixed(2),
+    });
+    setUnity(Number(target.value));
+  };
 
   return (
     <div data-testid={ `customer_products__element-card-${id}` }>
@@ -115,10 +116,7 @@ function ProductsCard({ name, price, urlImage, id }) {
           type="button"
           name={ `button-card-rm-item-${id}` }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
-          onClick={ () => {
-            setUnity(unity - 1);
-            removeInCart();
-          } }
+          onClick={ removeInCart }
         >
           -
         </button>
@@ -127,16 +125,13 @@ function ProductsCard({ name, price, urlImage, id }) {
           data-testid={ `customer_products__input-card-quantity-${id}` }
           name="number"
           value={ unity }
-          onChange={ (e) => handleChange(e) }
+          onChange={ handleChange }
         />
         <button
           type="button"
           name={ `button-card-add-item-${id}` }
           data-testid={ `customer_products__button-card-add-item-${id}` }
-          onClick={ () => {
-            setUnity(unity + 1);
-            addInCart();
-          } }
+          onClick={ addInCart }
         >
           +
         </button>

@@ -1,18 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import storage from '../context/context';
 // import Provider from '../context/provider';
 
 function CarTotalPrice() {
   const history = useHistory();
-  const { total } = useContext(storage);
+  const { cart, total, setTotal } = useContext(storage);
 
   const redirectToCheckout = () => {
     history.push('/customer/checkout');
   };
 
-  /* useEffect(() => {
-  }, [total]) */
+  useEffect(() => {
+    if (cart) {
+      const totalValue = cart
+        .reduce((acc, crr) => acc + Number(crr.subTotal.replace(/,/, '.')), 0);
+      setTotal(totalValue.toFixed(2));
+    }
+  }, [cart, setTotal]);
 
   return (
     <button
