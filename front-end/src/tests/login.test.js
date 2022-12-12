@@ -12,6 +12,7 @@ describe('Testa Fluxo Login', () => {
   const emailTestId = 'common_login__input-email';
   const passwordTestId = 'common_login__input-password';
   const loginButton = 'common_login__button-login';
+  const registerButton = 'common_login__button-register';
   // const invalidEmail = 'common_login__element-invalid-email';
 
   it('Verifica funcionalidade do login e redirecionamento', async () => {
@@ -46,5 +47,18 @@ describe('Testa Fluxo Login', () => {
     await waitFor(
       () => expect(history.location.pathname).toBe('/customer/products'),
     );
+  });
+  it('Criar nova conta', () => {
+    const { history } = renderWithRouter(<App />);
+
+    const createNewAccount = screen.getByTestId(registerButton);
+
+    expect(createNewAccount).toBeInTheDocument();
+
+    expect(createNewAccount).not.toBeDisabled();
+
+    userEvent.click(createNewAccount);
+
+    expect(history.location.pathname).toBe('/register');
   });
 });
