@@ -5,14 +5,23 @@ import Header from '../../components/Header';
 import ProductBtn from '../../components/ProductBtn';
 import dataTestIds from '../../components/utils/dataTestIds';
 import SellerDetailsTable from '../../components/SellerDetailsTable';
-import { requestData } from '../../API/requests';
+import { requestData, requestUpdate } from '../../API/requests';
 
 export default function SellerDetails({ match: { params: { id } } }) {
   const [sale, setSale] = useState({ products: [] });
+  const [saleStatus, setSaleStatus] = useState('Pendente');
 
   const requestSale = async () => {
     requestData(`/seller/orders/${id}`)
-      .then((data) => setSale(data));
+      .then((data) => {
+        setSale(data);
+        setSaleStatus(data.status);
+      });
+  };
+
+  const updateStatus = async (status) => {
+    requestUpdate(`/seller/orders/${id}`, { status })
+      .then((data) => setSaleStatus(data));
   };
 
   useEffect(() => {
@@ -24,10 +33,6 @@ export default function SellerDetails({ match: { params: { id } } }) {
         FirstNavigationLink={ ProductBtn }
         SecondNavegationLink={ null }
       />
-      {/* SellerDetails:
-      {' '}
-      {id}
-      {' '} */}
       <div>
         <p
           data-testid={ `${dataTestIds[54]}${sale.id}` }
@@ -42,17 +47,21 @@ export default function SellerDetails({ match: { params: { id } } }) {
         <p
           data-testid={ `${dataTestIds[55]}${sale.id}` }
         >
-          { sale.status}
+          { saleStatus }
         </p>
         <button
           type="button"
           data-testid={ `${dataTestIds[57]}${sale.id}` }
+          disabled={ saleStatus !== 'Pendente' }
+          onClick={ () => updateStatus('Preparando') }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
           data-testid={ `${dataTestIds[58]}${sale.id}` }
+          disabled={ saleStatus !== 'Preparando' }
+          onClick={ () => updateStatus('Em Trânsito') }
         >
           SAIU PARA ENTREGA
         </button>

@@ -17,7 +17,12 @@ const findSaleById = async (id) => {
   return sale;
 };
 
+const updateSaleStatus = async (id, body) => {
+  await Sale.update(body, { where: { id } });
+};
+
 module.exports = {
   findSalesBySellerId,
   findSaleById,
+  updateSaleStatus,
 };
