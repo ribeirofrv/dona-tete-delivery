@@ -13,15 +13,20 @@ const api = axios.create({
   baseURL: 'http://localhost:3001',
 });
 
-export const setToken = (token) => {
+export const setToken = () => {
+  const { token } = JSON.parse(localStorage.getItem('user'));
   api.defaults.headers.common.Authorization = token;
 };
 
 export const requestData = async (endpoint) => {
-  /* const { data } = await api.get(endpoint, getHeaders());
-  console.log('🚀 ~ file: requests.js:21 ~ requestData ~ data', data);
-*/
+  setToken();
   const { data } = await api.get(endpoint);
+  return data;
+};
+
+export const requestUpdate = async (endpoint, body) => {
+  setToken();
+  const { data } = await api.patch(endpoint, body);
   return data;
 };
 

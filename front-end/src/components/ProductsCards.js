@@ -99,7 +99,7 @@ function ProductsCard({ name, price, urlImage, id }) {
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
-        alt={ `${name}:${price.replace(/\./, ',')}` }
+        alt={ `${name}: ${price.replace(/\./, ',')}` }
       />
       <div>
         <h2 data-testid={ `customer_products__element-card-title-${id}` }>

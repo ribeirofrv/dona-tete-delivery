@@ -11,7 +11,7 @@ module.exports = {
         delivery_address: 'Rua 0', 
         delivery_number: '002',
         sale_date: '2022-12-07',
-        status: 'pendente', 
+        status: 'Pendente', 
       },
       {
         id: 2,
@@ -21,7 +21,7 @@ module.exports = {
         delivery_address: 'Rua x', 
         delivery_number: '003',
         sale_date: '2022-12-07',
-        status: 'efetuado', 
+        status: 'Pendente', 
       },
       {
         id: 3,
@@ -31,7 +31,7 @@ module.exports = {
         delivery_address: 'Rua y', 
         delivery_number: '004',
         sale_date: '2022-12-07',
-        status: 'pendente', 
+        status: 'Pendente', 
       },         
     ], { timestamps: false });
   },
