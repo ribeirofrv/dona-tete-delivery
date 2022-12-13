@@ -9,7 +9,7 @@ import ProductBtn from '../../components/ProductBtn';
 import dataTestIds from '../../components/utils/dataTestIds';
 
 export default function CustomerDetails({ match: { params: { id } } }) {
-  const [sale, setSale] = useState({ products: [] });
+  const [sale, setSale] = useState();
   const [saleStatus, setSaleStatus] = useState('Pendente');
 
   const requestSale = async () => {
@@ -28,7 +28,7 @@ export default function CustomerDetails({ match: { params: { id } } }) {
   useEffect(() => {
     requestSale();
   }, []);
-
+  console.log(sale);
   return (
     <main>
       <Header
@@ -36,46 +36,51 @@ export default function CustomerDetails({ match: { params: { id } } }) {
         SecondNavegationLink={ OrdersBtn }
         userDataTestId="customer_products__element-navbar-user-full-name"
       />
-      <div>
-        <p
-          data-testid={ `${dataTestIds[38]}${sale.id}` }
-        >
-          { sale.deliveryNumber}
-        </p>
-        {/* <p
-          data-testid={ `${dataTestIds[39]}${sale.id}` }
-        >
-          { sale.seller }
-        </p> */}
-        <p
-          data-testid={ `${dataTestIds[40]}${sale.id}` }
-        >
-          { moment(sale.saleDate).format('DD/MM/YYYY')}
-        </p>
-        <p
-          data-testid={ `${dataTestIds[41]}${sale.id}` }
-        >
-          { saleStatus }
-        </p>
-        <button
-          type="button"
-          data-testid={ `${dataTestIds[48]}${sale.id}` }
-          disabled={ saleStatus !== 'Em Trânsito' }
-          onClick={ () => updateStatus('Entregue') }
-        >
-          MARCAR COMO ENTREGUE
-        </button>
-      </div>
-      <section>
-        <DetailsTable data={ sale.products } />
-      </section>
-      <div
-        data-testid={ `${dataTestIds[47]}` }
-      >
-        Total:
-        {' '}
-        { sale.totalPrice}
-      </div>
+      {sale && (
+        <section>
+          <div>
+            <p
+              data-testid={ `${dataTestIds[38]}${sale.id}` }
+            >
+              { sale.deliveryNumber}
+            </p>
+            <p
+              data-testid={ `${dataTestIds[39]}${sale.id}` }
+            >
+              { sale.seller.name }
+            </p>
+            <p
+              data-testid={ `${dataTestIds[40]}${sale.id}` }
+            >
+              { moment(sale.saleDate).format('DD/MM/YYYY')}
+            </p>
+            <p
+              data-testid={ `${dataTestIds[41]}${sale.id}` }
+            >
+              { saleStatus }
+            </p>
+            <button
+              type="button"
+              data-testid={ `${dataTestIds[48]}${sale.id}` }
+              disabled={ saleStatus !== 'Em Trânsito' }
+              onClick={ () => updateStatus('Entregue') }
+            >
+              MARCAR COMO ENTREGUE
+            </button>
+          </div>
+          <section>
+            <DetailsTable data={ sale.products } />
+          </section>
+          <div
+            data-testid={ `${dataTestIds[47]}` }
+          >
+            Total:
+            {' '}
+            { sale.totalPrice}
+          </div>
+        </section>
+      ) }
+
     </main>
   );
 }
