@@ -25,10 +25,10 @@ function CarTotalPrice() {
       data-testid="customer_products__button-cart"
       className="cart-btn"
       onClick={ () => redirectToCheckout() }
-      disabled={ total === '0,00' || total === '0.00' ? 1 : 0 }
+      disabled={ total.replace(/\./, ',') === '0,00' || total.replace(/\./, ',') === '0.00' ? 1 : 0 }
     >
       <span data-testid="customer_products__checkout-bottom-value">
-        { ` R$ ${total || 0}` }
+        { ` R$ ${total.replace(/\./, ',') || 0}` }
       </span>
     </button>
   );

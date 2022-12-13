@@ -6,7 +6,7 @@ function LogoutBtn() {
     <Link
       data-testid="customer_products__element-navbar-link-logout"
       to="/login"
-      onClick={ () => localStorage.removeItem('user') }
+      onClick={ () => localStorage.clear() }
     >
       LOGOUT
     </Link>
