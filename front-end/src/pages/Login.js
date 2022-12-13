@@ -57,10 +57,11 @@ export default function Login({ history }) {
           id="password"
         />
       </label>
-      { error && (
+      {error && (
         <p data-testid="common_login__element-invalid-email">
           Email e senha inválidos
-        </p>) }
+        </p>
+      )}
       <button
         onClick={ () => handleLogin() }
         disabled={ validationInputs() }

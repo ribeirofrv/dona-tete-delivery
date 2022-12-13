@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import { useNavigate } from 'react-router-dom';
-import LogoutBtn from './LogoutBtn';
 import FullName from './FullName';
+import LogoutBtn from './LogoutBtn';
 
 export default function Header({
   FirstNavigationLink,
   SecondNavegationLink,
+  userDataTestId,
 }) {
   return (
     <header className="common-header">
@@ -14,7 +15,8 @@ export default function Header({
       <nav className="buttons-content">
         <FirstNavigationLink />
         { SecondNavegationLink ? <SecondNavegationLink /> : <div />}
-        <FullName />
+        <SecondNavegationLink />
+        <FullName dataTestId={ userDataTestId } />
         <LogoutBtn />
       </nav>
     </header>
@@ -24,6 +26,7 @@ export default function Header({
 Header.propTypes = {
   FirstNavigationLink: PropTypes.elementType.isRequired,
   SecondNavegationLink: PropTypes.elementType,
+  userDataTestId: PropTypes.string.isRequired,
 };
 
 Header.defaultProps = {

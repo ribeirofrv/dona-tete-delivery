@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import dataTestIds from './utils/dataTestIds';
+import dataTestIds from '../utils/dataTestIds';
 
 export default function Table({ data }) {
   return (
