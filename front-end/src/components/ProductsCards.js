@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import storage from '../context/context';
 
-function ProductsCard({ name, price, urlImage, id }) {
+function ProductsCard({ name, price, url, id }) {
   const [unity, setUnity] = useState(0);
   const [product, setProduct] = useState({});
   const { newItem } = useContext(storage);
@@ -98,7 +98,8 @@ function ProductsCard({ name, price, urlImage, id }) {
     <div data-testid={ `customer_products__element-card-${id}` }>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ urlImage }
+        src={ url }
+        style={ { width: '200px' } }
         alt={ `${name}: ${price.replace(/\./, ',')}` }
       />
       <div>
