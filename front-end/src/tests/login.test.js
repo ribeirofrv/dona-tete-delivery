@@ -48,7 +48,9 @@ describe('Testa Fluxo Login', () => {
       () => expect(history.location.pathname).toBe('/customer/products'),
     );
   });
-  it('Criar nova conta', () => {
+
+  it('Testa registrar nova conta', () => {
+    localStorage.clear();
     const { history } = renderWithRouter(<App />);
 
     const createNewAccount = screen.getByTestId(registerButton);
