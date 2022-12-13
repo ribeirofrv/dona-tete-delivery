@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import CarTotalPrice from '../CarTotalPrice';
 import dataTestIds from '../utils/dataTestIds';
 
 export default function Table({ data }) {
@@ -35,6 +36,7 @@ export default function Table({ data }) {
             </td>
           </tr>
         ))}
+        <CarTotalPrice />
       </tbody>
     </table>
   );
