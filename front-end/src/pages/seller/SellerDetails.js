@@ -70,7 +70,13 @@ export default function SellerDetails({ match: { params: { id } } }) {
       <section>
         <DetailsTable data={ sale.products } />
       </section>
-
+      <div
+        data-testid={ `${dataTestIds[64]}` }
+      >
+        Total:
+        {' '}
+        { sale.totalPrice}
+      </div>
     </main>
   );
 }

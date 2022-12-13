@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { requestData } from '../../API/requests';
+import { requestData, requestUpdate } from '../../API/requests';
 import DetailsTable from '../../components/DetailsTable';
 import Header from '../../components/Header/Header';
 import OrdersBtn from '../../components/Header/OrdersBtn';
@@ -42,11 +42,11 @@ export default function CustomerDetails({ match: { params: { id } } }) {
         >
           { sale.deliveryNumber}
         </p>
-        <p
+        {/* <p
           data-testid={ `${dataTestIds[39]}${sale.id}` }
         >
-          { sale.seller}
-        </p>
+          { sale.seller }
+        </p> */}
         <p
           data-testid={ `${dataTestIds[40]}${sale.id}` }
         >
@@ -69,6 +69,13 @@ export default function CustomerDetails({ match: { params: { id } } }) {
       <section>
         <DetailsTable data={ sale.products } />
       </section>
+      <div
+        data-testid={ `${dataTestIds[47]}` }
+      >
+        Total:
+        {' '}
+        { sale.totalPrice}
+      </div>
     </main>
   );
 }
