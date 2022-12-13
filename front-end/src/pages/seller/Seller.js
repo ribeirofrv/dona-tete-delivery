@@ -23,6 +23,7 @@ export default function Seller() {
       <Header
         FirstNavigationLink={ ProductBtn }
         SecondNavegationLink={ null }
+        userDataTestId="customer_products__element-navbar-user-full-name"
       />
       <OrderCard testId="seller" orders={ orders } />
     </section>

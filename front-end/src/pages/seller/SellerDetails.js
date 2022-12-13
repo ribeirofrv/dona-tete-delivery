@@ -4,7 +4,7 @@ import moment from 'moment';
 import Header from '../../components/Header/Header';
 import ProductBtn from '../../components/ProductBtn';
 import dataTestIds from '../../components/utils/dataTestIds';
-import SellerDetailsTable from '../../components/SellerDetailsTable';
+import DetailsTable from '../../components/DetailsTable';
 import { requestData, requestUpdate } from '../../API/requests';
 
 export default function SellerDetails({ match: { params: { id } } }) {
@@ -32,6 +32,7 @@ export default function SellerDetails({ match: { params: { id } } }) {
       <Header
         FirstNavigationLink={ ProductBtn }
         SecondNavegationLink={ null }
+        userDataTestId="customer_products__element-navbar-user-full-name"
       />
       <div>
         <p
@@ -67,9 +68,15 @@ export default function SellerDetails({ match: { params: { id } } }) {
         </button>
       </div>
       <section>
-        <SellerDetailsTable data={ sale.products } />
+        <DetailsTable data={ sale.products } />
       </section>
-
+      <div
+        data-testid={ `${dataTestIds[64]}` }
+      >
+        Total:
+        {' '}
+        { sale.totalPrice}
+      </div>
     </main>
   );
 }
