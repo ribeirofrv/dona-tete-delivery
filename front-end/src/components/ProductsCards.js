@@ -143,13 +143,12 @@ ProductsCard.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
   price: PropTypes.string,
-  urlImage: PropTypes.string,
+  url: PropTypes.string,
   cart: PropTypes.arrayOf(PropTypes.object),
-  // setCart: PropTypes.func,
 }.isRequired;
 
 ProductsCard.defaultProps = {
-  urlImage: '',
+  url: '',
 };
 
 export default ProductsCard;
