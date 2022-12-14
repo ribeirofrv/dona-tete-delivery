@@ -36,7 +36,17 @@ const register = async (body) => {
   return { token, email, role, name };
 };
 
+const findAllSeller = async () => {
+  const sellers = await User.findAll({ where: { role: 'seller' }, raw: true });
+  if (!sellers) {
+    throw errorGenerate(404, 'No sellers available');
+  }
+  const sellersNames = sellers.map(({ name }) => name);
+  return sellersNames;
+};
+
 module.exports = {
   login,
   register,
+  findAllSeller,
 };

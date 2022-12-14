@@ -1,5 +1,10 @@
 const { Sale, Product, SalesProducts } = require('../../database/models');
 
+const findAllSaller = async () => {
+  const sales = await Sale.findAll();
+  return sales;
+};
+
 const findSalesBySellerId = async (sellerId) => {
   const sales = await Sale.findAll({ where: { sellerId } });
   return sales;
@@ -22,6 +27,7 @@ const updateSaleStatus = async (id, body) => {
 };
 
 module.exports = {
+  findAllSaller,
   findSalesBySellerId,
   findSaleById,
   updateSaleStatus,
