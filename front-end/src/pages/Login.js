@@ -38,8 +38,8 @@ export default function Login({ history }) {
       <label htmlFor="login">
         Login
         <input
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
+          onChange={ (e) => setEmail(e.target.value) }
+          value={ email }
           type="text"
           data-testid="common_login__input-email"
           placeholder="email@trybeer.com.br"
@@ -49,8 +49,8 @@ export default function Login({ history }) {
       <label htmlFor="password">
         Senha
         <input
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
+          onChange={ (e) => setPassword(e.target.value) }
+          value={ password }
           type="password"
           data-testid="common_login__input-password"
           placeholder="*****"
@@ -63,15 +63,15 @@ export default function Login({ history }) {
         </p>
       )}
       <button
-        onClick={() => handleLogin()}
-        disabled={validationInputs()}
+        onClick={ () => handleLogin() }
+        disabled={ validationInputs() }
         type="button"
         data-testid="common_login__button-login"
       >
         Login
       </button>
       <button
-        onClick={() => redirectToRegister()}
+        onClick={ () => redirectToRegister() }
         type="button"
         data-testid="common_login__button-register"
       >
