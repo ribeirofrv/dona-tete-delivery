@@ -13,7 +13,7 @@ describe('Testa Fluxo Login', () => {
   const passwordTestId = 'common_login__input-password';
   const loginButton = 'common_login__button-login';
   const registerButton = 'common_login__button-register';
-  // const invalidEmail = 'common_login__element-invalid-email';
+  const invalidEmail = 'common_login__element-invalid-email';
 
   it('Verifica funcionalidade do login e redirecionamento', async () => {
     const { history } = renderWithRouter(<App />);
@@ -51,6 +51,7 @@ describe('Testa Fluxo Login', () => {
 
   it('Testa registrar nova conta', () => {
     localStorage.clear();
+
     const { history } = renderWithRouter(<App />);
 
     const createNewAccount = screen.getByTestId(registerButton);
@@ -62,5 +63,37 @@ describe('Testa Fluxo Login', () => {
     userEvent.click(createNewAccount);
 
     expect(history.location.pathname).toBe('/register');
+  });
+
+  it('Testa mensagem de erro', async () => {
+    localStorage.clear();
+
+    renderWithRouter(<App />);
+
+    const inputEmail = screen.getByTestId(emailTestId);
+    const inputPassword = screen.getByTestId(passwordTestId);
+    const button = screen.getByTestId(loginButton);
+
+    expect(inputEmail).toBeInTheDocument();
+    expect(inputPassword).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
+
+    expect(button).toBeDisabled();
+
+    userEvent.type(inputEmail, 'invalid@email.com');
+    userEvent.type(inputPassword, validPassword);
+
+    expect(button).not.toBeDisabled();
+
+    userEvent.click(button);
+
+    const errMessage = await screen.findAllByTestId(invalidEmail);
+    const errMessageText = errMessage[0];
+    console.log('errMessage', errMessage);
+    console.log('invaaaaa', invalidEmail);
+
+    await waitFor(
+      () => expect(errMessageText).toBeInTheDocument(),
+    );
   });
 });
