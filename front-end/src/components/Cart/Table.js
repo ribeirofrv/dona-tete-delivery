@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import Storage from '../../context/context';
 import dataTestIds from '../utils/dataTestIds';
 
 export default function Table() {
+  const { setTotal } = useContext(Storage);
   const storageCart = JSON.parse(localStorage.getItem('cart'));
   const [cart, updateCart] = useState(storageCart);
 
@@ -15,6 +17,16 @@ export default function Table() {
     const currentStore = JSON.parse(localStorage.getItem('cart'));
     updateCart(currentStore);
   };
+
+  useEffect(() => {
+    const totalValue = storageCart.reduce((acc, crr) => {
+      const { subTotal } = crr;
+      const parsedSubTotal = +(subTotal.replace(',', '.'));
+      return (acc + parsedSubTotal);
+    }, 0);
+    const valueFixed = totalValue.toFixed(2);
+    setTotal(valueFixed);
+  }, [cart]);
 
   return (
     <table>
@@ -31,21 +43,22 @@ export default function Table() {
       <tbody>
         {cart?.map((product, index) => (
           <tr key={ index }>
-            <td data-testid={ `${dataTestIds[22]}${index}` }>{index + 1}</td>
-            <td data-testid={ `${dataTestIds[23]}${index}` }>{product.name}</td>
-            <td data-testid={ `${dataTestIds[24]}${index}` }>
+            <td data-testid={ `${dataTestIds[23]}${index}` }>{index + 1}</td>
+            <td data-testid={ `${dataTestIds[24]}${index}` }>{product.name}</td>
+            <td data-testid={ `${dataTestIds[25]}${index}` }>
               {product.quantity}
             </td>
-            <td data-testid={ `${dataTestIds[25]}${index}` }>
+            <td data-testid={ `${dataTestIds[26]}${index}` }>
               {product.unitPrice}
             </td>
-            <td data-testid={ `${dataTestIds[26]}${index}` }>
+            <td data-testid={ `${dataTestIds[27]}${index}` }>
               {product.subTotal}
             </td>
-            <td data-testid={ `${dataTestIds[27]}${index}` }>
+            <td>
               <button
                 type="button"
                 id={ product.name }
+                data-testid={ `${dataTestIds[28]}${index}` }
                 onClick={ ({ target }) => {
                   removeItem(target.id);
                   updateLocalStorage();
