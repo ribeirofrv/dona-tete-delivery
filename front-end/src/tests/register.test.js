@@ -12,7 +12,7 @@ describe('Testa a página de Registro', () => {
   const nameRegisterTestId = 'common_register__input-name';
   const passwordRegisterTestId = 'common_register__input-password';
   const registerButton = 'common_register__button-register';
-  // const invalidRegister = 'common_register__element-invalid_register';
+  const invalidRegister = 'common_register__element-invalid_register';
 
   it('Verifica funcionalidade do Registro', async () => {
     localStorage.clear();
@@ -65,11 +65,25 @@ describe('Testa a página de Registro', () => {
     );
   });
 
-  it.skip('Testa se mensagem de erro aparece', async () => {
+  it('Testa se mensagem de erro aparece', async () => {
     localStorage.clear();
+    jest.spyOn(api, 'post').mockResolvedValue({
+      data: {
+        name: 'Cliente Teste',
+        email: 'teste@teste.com',
+        role: 'customer',
+        token: '123456789',
+      },
+    });
 
     const { history } = renderWithRouter(<App />);
     history.push('/register');
+
+    const inputRegisterEmail = screen.getByTestId(emailRegisterTestId);
+    const inputRegisterName = screen.getByTestId(nameRegisterTestId);
+    const inputRegisterPass = screen.getByTestId(passwordRegisterTestId);
+    const regButton = screen.getByTestId(registerButton);
+    // const invalidReg = screen.getByTestId(invalidRegister);
 
     expect(inputRegisterName).toBeInTheDocument();
     expect(inputRegisterEmail).toBeInTheDocument();
@@ -92,8 +106,7 @@ describe('Testa a página de Registro', () => {
 
     userEvent.click(regButton);
 
-    const errorMessage = screen
-      .queryByTestId(invalidRegister);
+    const errorMessage = screen.queryByTestId(invalidRegister);
     waitFor(() => expect(errorMessage).toBeInTheDocument());
   });
 });
