@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import { requestPost } from '../../API/requests';
+import React, { useEffect, useState } from 'react';
+import { requestData, requestDelete, requestPost } from '../../API/requests';
+import AdminTable from '../../components/AdminTable';
 import AdminBtn from '../../components/Header/AdminBtn';
-// import Register from './Register';
-// import { getFilteredUsers } from '../../../back-end/src/api/services/admin.service';
 import Header from '../../components/Header/Header';
 
 export default function AdminManage() {
+  const rolesList = ['administrator', 'seller', 'customer'];
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('customer');
   const [error, setError] = useState(false);
+  const [register, setRegister] = useState('');
+  const [users, setUsers] = useState([]);
 
-  const rolesList = ['administrator', 'seller', 'customer'];
-  // const users = getFilteredUsers();
-  // console.log(users);
+  const adminEndpoint = '/admin/manage';
 
   const handleRegister = async () => {
-    requestPost('/admin/manage', { email, password, name, role })
-      .then((data) => console.log(data))
+    requestPost(adminEndpoint, { email, password, name, role })
+      .then((data) => setRegister(data.email))
       .catch(() => setError(true));
   };
 
@@ -28,6 +28,22 @@ export default function AdminManage() {
       .test(email) && name.length >= +'12');
     return bool;
   };
+
+  const requestUsers = async () => {
+    requestData(adminEndpoint)
+      .then((data) => setUsers(data));
+  };
+
+  const deleteUser = async (id, deletedName) => {
+    console.log(id, deletedName);
+    requestDelete(adminEndpoint, { id })
+      .then(() => setRegister(deletedName));
+  };
+
+  useEffect(() => {
+    requestUsers();
+  }, [register]);
+
   return (
     <section>
       <Header
@@ -101,7 +117,7 @@ export default function AdminManage() {
           O nome ou o email já existem
         </p>) }
       <h2> Lista de Usuários </h2>
-      <table />
+      <AdminTable users={ users } deleteUser={ deleteUser } />
     </section>
   );
 }
