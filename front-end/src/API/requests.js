@@ -35,4 +35,10 @@ export const requestLogin = async (endpoint, body) => {
   return data;
 };
 
+export const requestPost = async (endpoint, body) => {
+  setToken();
+  const { data } = await api.post(endpoint, body);
+  return data;
+};
+
 export default api;

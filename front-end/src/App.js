@@ -8,6 +8,7 @@ import Checkout from './pages/customers/Checkout';
 import SellerDetails from './pages/seller/SellerDetails';
 import Home from './pages/Home';
 import CustomerDetails from './pages/customers/CustomerDetails';
+import AdminManage from './pages/admin/AdminManage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route exact path="/customer/orders/:id" component={ CustomerDetails } />
       <Route exact path="/seller/orders" component={ Seller } />
       <Route exact path="/seller/orders/:id" component={ SellerDetails } />
+      <Route exact path="/admin/manage" component={ AdminManage } />
     </Switch>
   );
 }
