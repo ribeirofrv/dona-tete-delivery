@@ -68,9 +68,15 @@ const getAllUsers = async (id) => {
   return users;
 }; 
 
+const deleteMe = async (id, adminId) => {
+  await verifyAdmin(adminId);
+  await User.destroy({ where: { id } });
+}; 
+
 module.exports = {
   login,
   register,
   adminRegister,
   getAllUsers,
+  deleteMe,
 };

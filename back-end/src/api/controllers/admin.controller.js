@@ -21,4 +21,16 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-module.exports = { adminRegister, getAllUsers };
+const deleteUser = async (req, res, next) => {
+  try {
+    const adminId = req.user.id;
+    const { id } = req.body;
+    console.log(id);
+    await userService.deleteMe(id, adminId);
+    return res.status(204).json('Usuário deletado');
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { adminRegister, getAllUsers, deleteUser };

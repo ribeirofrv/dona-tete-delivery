@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function AdminTable({ users }) {
+export default function AdminTable({ users, deleteUser }) {
   return (
     <table>
       <thead>
@@ -14,7 +14,7 @@ export default function AdminTable({ users }) {
         </tr>
       </thead>
       <tbody>
-        {users.map(({ name, email, role }, index) => (
+        {users.map(({ id, name, email, role }, index) => (
           <tr key={ index }>
             <td
               data-testid={
@@ -50,6 +50,7 @@ export default function AdminTable({ users }) {
                 data-testid={
                   `admin_manage__element-user-table-remove-${index}`
                 }
+                onClick={ () => deleteUser(id, name) }
               >
                 Excluir
               </button>

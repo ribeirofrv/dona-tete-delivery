@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { requestData, requestPost } from '../../API/requests';
+import { requestData, requestDelete, requestPost } from '../../API/requests';
 import AdminTable from '../../components/AdminTable';
 import AdminBtn from '../../components/Header/AdminBtn';
 import Header from '../../components/Header/Header';
@@ -14,8 +14,10 @@ export default function AdminManage() {
   const [register, setRegister] = useState('');
   const [users, setUsers] = useState([]);
 
+  const adminEndpoint = '/admin/manage';
+
   const handleRegister = async () => {
-    requestPost('/admin/manage', { email, password, name, role })
+    requestPost(adminEndpoint, { email, password, name, role })
       .then((data) => setRegister(data.email))
       .catch(() => setError(true));
   };
@@ -28,8 +30,14 @@ export default function AdminManage() {
   };
 
   const requestUsers = async () => {
-    requestData('/admin/manage')
+    requestData(adminEndpoint)
       .then((data) => setUsers(data));
+  };
+
+  const deleteUser = async (id, deletedName) => {
+    console.log(id, deletedName);
+    requestDelete(adminEndpoint, { id })
+      .then(() => setRegister(deletedName));
   };
 
   useEffect(() => {
@@ -109,7 +117,7 @@ export default function AdminManage() {
           O nome ou o email já existem
         </p>) }
       <h2> Lista de Usuários </h2>
-      <AdminTable users={ users } />
+      <AdminTable users={ users } deleteUser={ deleteUser } />
     </section>
   );
 }
