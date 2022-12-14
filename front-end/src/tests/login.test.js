@@ -2,9 +2,10 @@ import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // import axios from 'axios';
-import renderWithRouter from '../helper/renderWithRouter';
+import renderWithRouter from './utils/renderWithRouter';
 import App from '../App';
 import { customer } from './mocks/login.mock';
+import api from '../API/requests';
 
 describe('Testa Fluxo Login', () => {
   const validEmail = customer[0].email;
@@ -16,6 +17,22 @@ describe('Testa Fluxo Login', () => {
   const invalidEmail = 'common_login__element-invalid-email';
 
   it('Verifica funcionalidade do login e redirecionamento', async () => {
+    // jest.spyOn(api, 'post').mockResolvedValueOnce({
+    //   data: {
+    //     email: 'zebirita@email.com',
+    //     password: '$#zebirita#$',
+    //   },
+    // });
+
+    jest.spyOn(api, 'post').mockResolvedValue({
+      data: {
+        name: 'Cliente Teste',
+        email: 'teste@teste.com',
+        role: 'customer',
+        token: '123456789',
+      },
+    });
+
     const { history } = renderWithRouter(<App />);
 
     const inputEmail = screen.getByTestId(emailTestId);
@@ -40,6 +57,7 @@ describe('Testa Fluxo Login', () => {
     userEvent.type(inputPassword, validPassword);
 
     console.log('InputPassword', inputPassword.value);
+    console.log('InputEmail', inputEmail.value);
     expect(button).not.toBeDisabled();
 
     userEvent.click(button);
@@ -68,6 +86,8 @@ describe('Testa Fluxo Login', () => {
   it('Testa mensagem de erro', async () => {
     localStorage.clear();
 
+    jest.spyOn(api, 'post').mockRejectedValueOnce(new Error('Email e senha inválidos'));
+
     renderWithRouter(<App />);
 
     const inputEmail = screen.getByTestId(emailTestId);
@@ -89,8 +109,8 @@ describe('Testa Fluxo Login', () => {
 
     const errMessage = await screen.findAllByTestId(invalidEmail);
     const errMessageText = errMessage[0];
-    console.log('errMessage', errMessage);
-    console.log('invaaaaa', invalidEmail);
+    // console.log('errMessage', errMessage);
+    // console.log('invaaaaa', invalidEmail);
 
     await waitFor(
       () => expect(errMessageText).toBeInTheDocument(),
