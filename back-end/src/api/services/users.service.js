@@ -17,15 +17,19 @@ const login = async (email, bodyPassword) => {
   return { token, email, role, name };
 };
 
-const register = async (body) => {
-  const { email, password, name } = body;
-
+const verifyUser = async (name, email) => {
   const userEmail = await User.findOne({ where: { email } });
   const userName = await User.findOne({ where: { name } });
 
   if (userEmail || userName) {
     throw errorGenerate(409, 'Conflict');
   }
+};
+
+const register = async (body) => {
+  const { email, password, name } = body;
+
+  await verifyUser(name, email);
 
   const newHash = md5(password);
 
@@ -36,7 +40,29 @@ const register = async (body) => {
   return { token, email, role, name };
 };
 
+const verifyAdmin = async (id) => {
+  const admin = await User.findByPk(id);
+
+  if (admin.role !== 'administrator') {
+    throw errorGenerate(401, 'Unauthorized');
+  }
+};
+
+const adminRegister = async (adminId, body) => {
+  const { email, password, name, role } = body;
+
+  await verifyUser(name, email);
+  await verifyAdmin(adminId);
+
+  const newHash = md5(password);
+
+  await User.create({ email, password: newHash, name, role });
+
+  return { name, email, role };
+};
+
 module.exports = {
   login,
   register,
+  adminRegister,
 };

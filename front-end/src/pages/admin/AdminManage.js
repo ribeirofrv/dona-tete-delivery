@@ -10,6 +10,7 @@ export default function AdminManage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('customer');
+  const [error, setError] = useState(false);
 
   const rolesList = ['administrator', 'seller', 'customer'];
   // const users = getFilteredUsers();
@@ -17,7 +18,8 @@ export default function AdminManage() {
 
   const handleRegister = async () => {
     requestPost('/admin/manage', { email, password, name, role })
-      .then((data) => console.log(data));
+      .then((data) => console.log(data))
+      .catch(() => setError(true));
   };
 
   const validationInputs = () => {
@@ -89,11 +91,15 @@ export default function AdminManage() {
           onClick={ () => handleRegister() }
           disabled={ validationInputs() }
           type="button"
-          data-testid="common_register__button-register"
+          data-testid="admin_manage__button-register"
         >
           Cadastrar
         </button>
       </form>
+      { error && (
+        <p data-testid="admin_manage__element-invalid-register">
+          O nome ou o email já existem
+        </p>) }
       <h2> Lista de Usuários </h2>
       <table />
     </section>
