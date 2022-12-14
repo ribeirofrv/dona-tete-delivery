@@ -99,7 +99,7 @@ function ProductsCard({ name, price, url, id }) {
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ url }
-        style={ { width: '300px' } }
+        style={ { width: '200px' } }
         alt={ `${name}: ${price.replace(/\./, ',')}` }
       />
       <div>
@@ -145,7 +145,6 @@ ProductsCard.propTypes = {
   price: PropTypes.string,
   url: PropTypes.string,
   cart: PropTypes.arrayOf(PropTypes.object),
-  // setCart: PropTypes.func,
 }.isRequired;
 
 ProductsCard.defaultProps = {

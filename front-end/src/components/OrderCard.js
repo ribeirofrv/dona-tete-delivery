@@ -46,5 +46,5 @@ export default function OrderCard({ testId, orders }) {
 
 OrderCard.propTypes = {
   testId: PropTypes.string.isRequired,
-  orders: PropTypes.shape([]).isRequired,
-};
+  orders: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;

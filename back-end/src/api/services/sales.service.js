@@ -1,4 +1,4 @@
-const { Sale, Product, SalesProducts } = require('../../database/models');
+const { User, Sale, Product, SalesProducts } = require('../../database/models');
 
 const findAllSaller = async () => {
   const sales = await Sale.findAll();
@@ -16,6 +16,7 @@ const findSaleById = async (id) => {
     { 
     include: [ 
       { model: Product, as: 'products', through: SalesProducts },
+      { model: User, as: 'seller', attributes: ['name'] },
     ], 
     });
   console.log(sale);

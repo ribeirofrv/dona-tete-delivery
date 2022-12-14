@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/customers/Products';
 import Checkout from './pages/customers/Checkout';
+import CustomerDetails from './pages/customers/CustomerDetails';
 import Seller from './pages/seller/Seller';
 import SellerDetails from './pages/seller/SellerDetails';
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/customer/checkout" component={ Checkout } />
+        <Route exact path="/customer/orders/:id" component={ CustomerDetails } />
         <Route exact path="/seller/orders" component={ Seller } />
         <Route exact path="/seller/orders/:id" component={ SellerDetails } />
       </Switch>
