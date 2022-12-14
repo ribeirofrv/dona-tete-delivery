@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { requestData, setToken } from '../../API/requests';
 import Header from '../../components/Header/Header';
+import SellerBtn from '../../components/Header/SellerBtn';
 import OrderCard from '../../components/OrderCard';
-import ProductBtn from '../../components/ProductBtn';
 
 export default function Seller() {
   const [orders, setOrders] = useState([]);
@@ -21,7 +21,7 @@ export default function Seller() {
   return (
     <section>
       <Header
-        FirstNavigationLink={ ProductBtn }
+        FirstNavigationLink={ SellerBtn }
         SecondNavegationLink={ null }
         userDataTestId="customer_products__element-navbar-user-full-name"
       />
