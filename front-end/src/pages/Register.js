@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { requestLogin } from '../API/requests';
+import { requestPost } from '../API/requests';
 
 export default function Register({ history }) {
   const [email, setEmail] = useState('');
@@ -10,8 +10,11 @@ export default function Register({ history }) {
 
   const validationInputs = () => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    const bool = !(password.length >= +'6' && emailRegex
-      .test(email) && name.length >= +'12');
+    const bool = !(
+      password.length >= +'6' &&
+      emailRegex.test(email) &&
+      name.length >= +'12'
+    );
     return bool;
   };
 
@@ -24,7 +27,7 @@ export default function Register({ history }) {
   };
 
   const handleRegister = async () => {
-    requestLogin('/register', { email, password, name })
+    requestPost('/register', { email, password, name })
       .then((data) => setLocalStorage(data))
       .catch(() => setError(true));
   };
@@ -34,8 +37,8 @@ export default function Register({ history }) {
       <label htmlFor="name">
         Nome
         <input
-          onChange={ (e) => setName(e.target.value) }
-          value={ name }
+          onChange={(e) => setName(e.target.value)}
+          value={name}
           type="text"
           data-testid="common_register__input-name"
           placeholder=""
@@ -45,8 +48,8 @@ export default function Register({ history }) {
       <label htmlFor="email">
         Email
         <input
-          onChange={ (e) => setEmail(e.target.value) }
-          value={ email }
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
           type="text"
           data-testid="common_register__input-email"
           placeholder="email@trybeer.com.br"
@@ -56,8 +59,8 @@ export default function Register({ history }) {
       <label htmlFor="password">
         Senha
         <input
-          onChange={ (e) => setPassword(e.target.value) }
-          value={ password }
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
           type="password"
           data-testid="common_register__input-password"
           placeholder="*****"
@@ -65,17 +68,18 @@ export default function Register({ history }) {
         />
       </label>
       <button
-        onClick={ () => handleRegister() }
-        disabled={ validationInputs() }
+        onClick={() => handleRegister()}
+        disabled={validationInputs()}
         type="button"
         data-testid="common_register__button-register"
       >
         Cadastrar
       </button>
-      { error && (
+      {error && (
         <p data-testid="common_register__element-invalid_register">
           O nome ou o email já existem
-        </p>) }
+        </p>
+      )}
     </section>
   );
 }
