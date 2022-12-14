@@ -45,12 +45,13 @@ const updateSaleStatus = async (request, response, next) => {
 const createSale = async (request, response, next) => {
   try {
     const { body } = request;
-    const userId = await userService.findUserByName(body.username);
-    const sellerId = await userService.findUserByName(body.seller);
+    console.log('👻 ~ file: customer.controller.js:48 ~ createSale ~ body', body);
+    const { id } = request.user
+    // const sellerId = await userService.findUserByRole('seller');
 
     const order = {
-      userId,
-      sellerId,
+      userId: id,
+      sellerId: body.sellerId,
       totalPrice: body.totalPrice,
       deliveryAddress: body.deliveryAddress,
       deliveryNumber: body.deliveryNumber,
@@ -58,9 +59,9 @@ const createSale = async (request, response, next) => {
       status: body.status,
     };
 
-    const sale = await salesService.createSale(order);
+    const orderCreated = await salesService.createSale(order);
 
-    return response.status(201).json(sale);
+    return response.status(201).json(orderCreated);
   } catch (error) {
     next(error);
   }

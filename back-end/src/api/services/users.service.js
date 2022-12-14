@@ -41,21 +41,21 @@ const findAllSeller = async () => {
   if (!sellers) {
     throw errorGenerate(404, 'No sellers available');
   }
-  const sellersNames = sellers.map(({ name }) => name);
+  const sellersNames = sellers.map(({ name, id }) => ({ name, id }));
   return sellersNames;
 };
 
-const findUserByName = async (name) => {
-  const user = await User.findOne({ where: { name } });
+const findUserByRole = async (role) => {
+  const user = await User.findOne({ where: { role } });
   if (!user) {
     throw errorGenerate(404, 'Not found');
   }
-  return user.id;
+  return user;
 };
 
 module.exports = {
   login,
   register,
   findAllSeller,
-  findUserByName,
+  findUserByRole,
 };

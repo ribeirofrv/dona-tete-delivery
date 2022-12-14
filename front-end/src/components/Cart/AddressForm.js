@@ -1,37 +1,51 @@
-import { useContext, useState /* useEffect */ } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { /* requestData */ requestPost } from '../../API/requests';
+import { requestData, requestPost } from '../../API/requests';
 import Storage from '../../context/context';
 import dataTestIds from '../utils/dataTestIds';
 
 export default function AddressForm() {
   const { total } = useContext(Storage);
 
-  const [seller, setSeller] = useState('default');
+  const [sellerInput, setSellerInput] = useState('default');
   const [deliveryAddress, setAddress] = useState('');
   const [deliveryNumber, setNumber] = useState('');
-  const attendant = ['Fulana Pereira', 'Ciclana Silva'];
-  // const attendant = requestData('customer/attendant');
+  const [sellers, setSellers] = useState([]);
 
   const history = useHistory();
+  const redirectToOrders = (saleId) => history.push(`/customer/orders/${saleId}`);
+
+  const getSeller = async () => {
+    const sellerReq = await requestData('/customer/checkout');
+    console.log(':rocket: ~ file: Checkout.js:25 ~ getSeller ~ sellerReq', sellerReq);
+    setSellers(sellerReq);
+    // setOrder({ ...order, sellerId: sellers[0].id });
+  };
+  console.log(':rocket: ~ file: Checkout.js:28 ~ getSeller ~ sellers', sellers);
+
+  useEffect(() => {
+    getSeller();
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const user = JSON.parse(localStorage.getItem('user'));
     const products = JSON.parse(localStorage.getItem('cart'));
+    const totalPrice = +(total.replace(',', '.'));
 
     const body = {
-      username: user.name,
-      seller,
+      seller: sellers[0].id,
       status: 'Pendente',
-      totalPrice: total,
+      totalPrice,
       deliveryAddress,
       deliveryNumber,
       products,
     };
-    const order = await requestPost('/customer/orders', body);
-    console.log('👻 ~ file: AddressForm.js:33 ~ handleSubmit ~ order', order);
-    history.push(`/customer/orders/${order.id}`);
+    console.log('👻 ~ file: AddressForm.js:44 ~ handleSubmit ~ body', body);
+
+    requestPost('/customer/orders', body)
+      .then((order) => redirectToOrders(order.id))
+      .catch((error) => console.log(error));
   };
 
   const isAble = deliveryAddress.length > 0
@@ -46,16 +60,16 @@ export default function AddressForm() {
           data-testid={ `${dataTestIds[30]}` }
           id="seller"
           name="seller"
-          value={ seller }
-          onChange={ ({ target: { value } }) => setSeller(value) }
+          value={ sellerInput }
+          onChange={ ({ target: { value } }) => setSellerInput(value) }
         >
           <option value="default">Selecionar</option>
-          {attendant.length > 0
-            && attendant.map((name, index) => (
-              <option key={ `seller-${index}` } value={ name }>
+          {sellers.length > 0
+            ? sellers.map(({ name, id }) => (
+              <option key={ `seller-${id}` } value={ id }>
                 {name}
               </option>
-            ))}
+            )) : <option value="default">Nenhuma vendedora cadastrada</option>}
         </select>
       </label>
 
