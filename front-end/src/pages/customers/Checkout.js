@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Storage from '../../context/context';
 import dataTestIds from '../../components/utils/dataTestIds';
 
-import Header from '../../components/Header/Header';
+import Header from '../../components/Header';
 import OrdersBtn from '../../components/Header/OrdersBtn';
 import ProductBtn from '../../components/Header/ProductBtn';
 

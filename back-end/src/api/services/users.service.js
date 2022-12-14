@@ -45,8 +45,17 @@ const findAllSeller = async () => {
   return sellersNames;
 };
 
+const findUserByName = async (name) => {
+  const user = await User.findOne({ where: { name } });
+  if (!user) {
+    throw errorGenerate(404, 'Not found');
+  }
+  return user.id;
+};
+
 module.exports = {
   login,
   register,
   findAllSeller,
+  findUserByName,
 };

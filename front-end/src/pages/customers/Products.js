@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductsCards from '../../components/ProductsCards';
 import CarTotalPrice from '../../components/CarTotalPrice';
 import { requestData } from '../../API/requests';
-import Header from '../../components/Header/Header';
+import Header from '../../components/Header';
 import ProductBtn from '../../components/Header/ProductBtn';
 import OrdersBtn from '../../components/Header/OrdersBtn';
 

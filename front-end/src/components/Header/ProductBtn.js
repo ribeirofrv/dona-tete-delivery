@@ -1,19 +1,36 @@
-// import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function ProductBtn() {
-  // const history = useHistory();
+  const history = useHistory();
+  const url = history.location.pathname;
+  const redirectToProducts = () => {
+    history.push('/customer/products');
+  };
 
-  // const redirectToProducts = () => {
-  //   history.push();
-  // };
+  const redirectToOrders = () => {
+    history.push('/seller/orders');
+  };
 
   return (
-    <Link
-      data-testid="customer_products__element-navbar-link-products"
-      to="/customer/products"
-    >
-      PRODUTOS
-    </Link>
+    <div>
+      { url.includes('customer') ? (
+        <button
+          type="submit"
+          data-testid="customer_products__element-navbar-link-products"
+          onClick={ () => redirectToProducts() }
+        >
+          PRODUTOS
+        </button>
+      ) : (
+        <button
+          type="submit"
+          data-testid="customer_products__element-navbar-link-orders"
+          onClick={ () => redirectToOrders() }
+        >
+          PEDIDOS
+        </button>
+      )}
+    </div>
   );
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Header from '../../components/Header/Header';
-import ProductBtn from '../../components/ProductBtn';
+import Header from '../../components/Header';
+import ProductBtn from '../../components/Header/ProductBtn';
 import dataTestIds from '../../components/utils/dataTestIds';
 import DetailsTable from '../../components/DetailsTable';
 import { requestData, requestUpdate } from '../../API/requests';

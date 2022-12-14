@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { requestData, requestUpdate } from '../../API/requests';
 import DetailsTable from '../../components/DetailsTable';
-import Header from '../../components/Header/Header';
+import Header from '../../components/Header';
 import OrdersBtn from '../../components/Header/OrdersBtn';
-import ProductBtn from '../../components/ProductBtn';
+import ProductBtn from '../../components/Header/ProductBtn';
 import dataTestIds from '../../components/utils/dataTestIds';
 
 export default function CustomerDetails({ match: { params: { id } } }) {

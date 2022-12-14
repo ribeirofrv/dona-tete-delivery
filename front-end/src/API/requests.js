@@ -31,6 +31,7 @@ export const requestUpdate = async (endpoint, body) => {
 };
 
 export const requestPost = async (endpoint, body) => {
+  // setToken();
   const { data } = await api.post(endpoint, body);
   return data;
 };

@@ -1,6 +1,6 @@
 import { useContext, useState /* useEffect */ } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestData, requestPost } from '../../API/requests';
+import { /* requestData */ requestPost } from '../../API/requests';
 import Storage from '../../context/context';
 import dataTestIds from '../utils/dataTestIds';
 
@@ -10,11 +10,11 @@ export default function AddressForm() {
   const [seller, setSeller] = useState('default');
   const [deliveryAddress, setAddress] = useState('');
   const [deliveryNumber, setNumber] = useState('');
-
-  const attendant = requestData('/customer/attendant');
+  const attendant = ['Fulana Pereira', 'Ciclana Silva'];
+  // const attendant = requestData('customer/attendant');
 
   const history = useHistory();
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const user = JSON.parse(localStorage.getItem('user'));
@@ -29,7 +29,8 @@ export default function AddressForm() {
       deliveryNumber,
       products,
     };
-    const order = requestPost('/customer/orders', body);
+    const order = await requestPost('/customer/orders', body);
+    console.log('👻 ~ file: AddressForm.js:33 ~ handleSubmit ~ order', order);
     history.push(`/customer/orders/${order.id}`);
   };
 
@@ -50,7 +51,7 @@ export default function AddressForm() {
         >
           <option value="default">Selecionar</option>
           {attendant.length > 0
-            && attendant.map(({ name }, index) => (
+            && attendant.map((name, index) => (
               <option key={ `seller-${index}` } value={ name }>
                 {name}
               </option>
