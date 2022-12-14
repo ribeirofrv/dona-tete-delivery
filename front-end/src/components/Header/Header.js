@@ -15,7 +15,6 @@ export default function Header({
       <nav className="buttons-content">
         <FirstNavigationLink />
         { SecondNavegationLink ? <SecondNavegationLink /> : <div />}
-        <SecondNavegationLink />
         <FullName dataTestId={ userDataTestId } />
         <LogoutBtn />
       </nav>
