@@ -11,4 +11,14 @@ const adminRegister = async (req, res, next) => {
   }
 };
 
-module.exports = { adminRegister };
+const getAllUsers = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const users = await userService.getAllUsers(id);
+    return res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { adminRegister, getAllUsers };

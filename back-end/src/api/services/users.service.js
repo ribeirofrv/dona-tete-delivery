@@ -1,4 +1,5 @@
 const md5 = require('md5');
+const { Op } = require('sequelize');
 const { checkPassword } = require('../helpers/bcrypt');
 const { User } = require('../../database/models');
 const errorGenerate = require('../helpers/errorGenerate');
@@ -61,8 +62,15 @@ const adminRegister = async (adminId, body) => {
   return { name, email, role };
 };
 
+const getAllUsers = async (id) => {
+  await verifyAdmin(id);
+  const users = await User.findAll({ where: { role: { [Op.not]: 'administrator' } } });
+  return users;
+}; 
+
 module.exports = {
   login,
   register,
   adminRegister,
+  getAllUsers,
 };
