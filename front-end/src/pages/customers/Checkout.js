@@ -21,11 +21,7 @@ export default function Checkout() {
       />
       <h1>Finalizar Pedido</h1>
       <Table />
-      <span
-        data-testid={ `${dataTestIds[29]}` }
-      >
-        {`Total: R$ ${total}`}
-      </span>
+      <span data-testid={ `${dataTestIds[29]}` }>{`${total.replace('.', ',')}`}</span>
       <AddressForm />
     </>
   );
