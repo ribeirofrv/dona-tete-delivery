@@ -1,4 +1,5 @@
 import { useState/* useEffect */ } from 'react';
+import { useHistory } from 'react-router-dom';
 // import { requestPost } from '../../API/requests';
 import dataTestIds from '../utils/dataTestIds';
 
@@ -7,7 +8,7 @@ export default function AddressForm() {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
 
-  const isAble = (address.length > 0) && (number.length > 0) && (seller !== 'default');
+  const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -17,8 +18,12 @@ export default function AddressForm() {
       number,
     };
     console.log(body);
+    const id = 3;
     // requestPost('/checkout', body);
+    history.push(`/customer/orders/${id}`);
   };
+
+  const isAble = (address.length > 0) && (number.length > 0) && (seller !== 'default');
 
   return (
     <form
@@ -30,7 +35,7 @@ export default function AddressForm() {
 
         {/* Select deve ter nomes de vendedores que vem do back */}
         <select
-          data-testid={ `${dataTestIds[29]}` }
+          data-testid={ `${dataTestIds[30]}` }
           id="seller"
           name="seller"
           value={ seller }
@@ -51,7 +56,7 @@ export default function AddressForm() {
       <label htmlFor="address">
         Endereço:
         <input
-          data-testid={ `${dataTestIds[30]}` }
+          data-testid={ `${dataTestIds[31]}` }
           id="address"
           type="text"
           value={ address }
@@ -62,7 +67,7 @@ export default function AddressForm() {
       <label htmlFor="number">
         Número:
         <input
-          data-testid={ `${dataTestIds[31]}` }
+          data-testid={ `${dataTestIds[32]}` }
           id="number"
           type="text"
           value={ number }
@@ -72,7 +77,7 @@ export default function AddressForm() {
 
       <button
         type="submit"
-        data-testid={ `${dataTestIds[32]}` }
+        data-testid={ `${dataTestIds[33]}` }
         disabled={ !isAble }
       >
         FINALIZAR PEDIDO
