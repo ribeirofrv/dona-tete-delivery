@@ -42,36 +42,32 @@ const updateSaleStatus = async (request, response, next) => {
 };
 
 const createSale = async (request, response, next) => {
-  /* try {
-    const { body } = request;
-    const userId = await userService.findUserByName(body.username);
-    const sellerId = await userService.findUserByName(body.seller);
-
-    const order = {
-      userId,
-      sellerId,
-      totalPrice: body.totalPrice,
-      deliveryAddress: body.deliveryAddress,
-      deliveryNumber: body.deliveryNumber,
-      products: body.products,
-      status: body.status,
-    };
-
-    const sale = await salesService.createSale(order);
-
-    return response.status(201).json(sale);
-  } catch (error) {
-    next(error);
-  } */
   try {
     const { body } = request;
 
-  const createdSales = await salesService.createSale(body);
+    const createdSales = await salesService.createSale(body);
 
-  return response.status(201).json(createdSales);
-} catch (error) {
-  next(error);
-}
+    return response.status(201).json(createdSales);
+  } catch (error) {
+    next(error);
+  }
 };
 
-module.exports = { getAllProducts, getSaleById, updateSaleStatus, createSale, getAllSeller };
+const getSalesByUserId = async (request, response, next) => {
+  try {
+    const { id } = request.user;
+    const allSales = await salesService.findSalesByUserId(id);
+    return response.status(200).json(allSales);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  getAllProducts,
+  getSaleById,
+  updateSaleStatus,
+  createSale,
+  getAllSeller,
+  getSalesByUserId,
+};
