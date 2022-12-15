@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Header from '../../components/Header';
-import ProductBtn from '../../components/Header/ProductBtn';
 import dataTestIds from '../../components/utils/dataTestIds';
 import DetailsTable from '../../components/DetailsTable';
 import { requestData, requestUpdate } from '../../API/requests';
+import SellerBtn from '../../components/Header/SellerBtn';
 
 export default function SellerDetails({ match: { params: { id } } }) {
   const [sale, setSale] = useState({ products: [] });
@@ -30,7 +30,7 @@ export default function SellerDetails({ match: { params: { id } } }) {
   return (
     <main>
       <Header
-        FirstNavigationLink={ ProductBtn }
+        FirstNavigationLink={ SellerBtn }
         SecondNavegationLink={ null }
         userDataTestId="customer_products__element-navbar-user-full-name"
       />

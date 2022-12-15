@@ -5,8 +5,8 @@ import { requestData, requestUpdate } from '../../API/requests';
 import DetailsTable from '../../components/DetailsTable';
 import Header from '../../components/Header';
 import OrdersBtn from '../../components/Header/OrdersBtn';
-import ProductBtn from '../../components/Header/ProductBtn';
 import dataTestIds from '../../components/utils/dataTestIds';
+import ProductBtn from '../../components/Header/ProductBtn';
 
 export default function CustomerDetails({ match: { params: { id } } }) {
   const [sale, setSale] = useState();

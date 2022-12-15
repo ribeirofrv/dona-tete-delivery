@@ -30,9 +30,20 @@ export const requestUpdate = async (endpoint, body) => {
   return data;
 };
 
-export const requestPost = async (endpoint, body) => {
-  // setToken();
+export const requestLogin = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
+  return data;
+};
+
+export const requestPost = async (endpoint, body) => {
+  setToken();
+  const { data } = await api.post(endpoint, body);
+  return data;
+};
+
+export const requestDelete = async (endpoint, body) => {
+  setToken();
+  const { data } = await api.delete(endpoint, body);
   return data;
 };
 
