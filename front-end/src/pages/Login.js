@@ -32,6 +32,7 @@ export default function Login({ history }) {
       .then((data) => setLocalStorage(data))
       .catch(() => setError(true));
   };
+  // utilizar try/catch
 
   useEffect(() => {
     const user = localStorage.getItem('user');
