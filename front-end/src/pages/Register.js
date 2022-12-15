@@ -10,8 +10,11 @@ export default function Register({ history }) {
 
   const validationInputs = () => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    const bool = !(password.length >= +'6' && emailRegex
-      .test(email) && name.length >= +'12');
+    const bool = !(
+      password.length >= +'6'
+      && emailRegex.test(email)
+      && name.length >= +'12'
+    );
     return bool;
   };
 
@@ -72,10 +75,11 @@ export default function Register({ history }) {
       >
         Cadastrar
       </button>
-      { error && (
+      {error && (
         <p data-testid="common_register__element-invalid_register">
           O nome ou o email já existem
-        </p>) }
+        </p>
+      )}
     </section>
   );
 }

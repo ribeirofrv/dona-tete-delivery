@@ -1,31 +1,28 @@
-import { useState, useEffect } from 'react';
-import Header from '../../components/Header/Header';
+import { useContext } from 'react';
+import Storage from '../../context/context';
+import dataTestIds from '../../components/utils/dataTestIds';
+
+import Header from '../../components/Header';
 import OrdersBtn from '../../components/Header/OrdersBtn';
 import ProductBtn from '../../components/Header/ProductBtn';
+
 import Table from '../../components/Cart/Table';
-import CarTotalPrice from '../../components/CarTotalPrice';
+import AddressForm from '../../components/Cart/AddressForm';
 
 export default function Checkout() {
-  const [cart, setCart] = useState([]);
-  const [username, setUsername] = useState('');
-
-  useEffect(() => {
-    const { name } = localStorage.getItem('user');
-    const cartStorage = localStorage.getItem('carrinho');
-    setUsername(name);
-    setCart(cartStorage);
-  }, []);
+  const { total } = useContext(Storage);
 
   return (
     <>
       <Header
         FirstNavigationLink={ ProductBtn }
         SecondNavegationLink={ OrdersBtn }
-        username={ username }
+        userDataTestId="customer_products__element-navbar-user-full-name"
       />
       <h1>Finalizar Pedido</h1>
-      <Table data={ cart } />
-      <CarTotalPrice />
+      <Table />
+      <span data-testid={ `${dataTestIds[29]}` }>{`${total.replace('.', ',')}`}</span>
+      <AddressForm />
     </>
   );
 }

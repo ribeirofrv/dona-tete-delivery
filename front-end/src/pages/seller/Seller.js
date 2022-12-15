@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { requestData, setToken } from '../../API/requests';
-import Header from '../../components/Header/Header';
+import Header from '../../components/Header';
 import SellerBtn from '../../components/Header/SellerBtn';
 import OrderCard from '../../components/OrderCard';
 
