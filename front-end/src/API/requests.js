@@ -34,6 +34,7 @@ export const requestLogin = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
   return data;
 };
+// tratar erro na requestLogin
 
 export const requestPost = async (endpoint, body) => {
   setToken();

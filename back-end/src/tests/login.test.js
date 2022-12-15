@@ -38,7 +38,7 @@ describe("Testa rota login", () => {
     expect(res.status.calledWith(200)).to.be.true;
   });
 
-  it("Testa se email é invalido", async () => {
+  it("Testa se email ou senha são invalidos", async () => {
     const req = {
       body: failedLogin,
     };
@@ -57,5 +57,7 @@ describe("Testa rota login", () => {
     // next(error);
     expect(spy.calledOnce);
   });
+
+  
 
 });
