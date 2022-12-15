@@ -1,18 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import moment from 'moment';
 
 export default function OrderCard({ testId, orders }) {
+  const location = useLocation();
+
+  const redirect = (order) => {
+    const url = location.pathname;
+    console.log('🚀 ~ file: OrderCard.js:11 ~ redirect ~ url', url);
+    if (url === '/customer/orders') {
+      return `/customer/orders/${order.id}`;
+    }
+    if (url === '/seller/orders') {
+      return `/seller/orders/${order.id}`;
+    }
+  };
+
   return (
     <main>
       {
         orders.map((order) => (
-          <Link to={ `/seller/orders/${order.id}` } key={ order.deliveryNumber }>
+          <Link to={ () => redirect(order) } key={ order.deliveryNumber }>
             <h1
               data-testid={ `${testId}_orders__element-order-id-${order.id}` }
             >
-              { order.deliveryNumber }
+              { order.id }
             </h1>
             <div
               data-testid={ `${testId}_orders__element-delivery-status-${order.id}` }
@@ -28,7 +41,7 @@ export default function OrderCard({ testId, orders }) {
               <h3
                 data-testid={ `${testId}_orders__element-card-price-${order.id}` }
               >
-                { order.totalPrice }
+                { order.totalPrice.replace(/\./, ',')}
               </h3>
             </div>
             {testId === 'seller' && (
