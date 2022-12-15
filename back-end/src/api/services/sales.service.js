@@ -10,6 +10,11 @@ const findSalesBySellerId = async (sellerId) => {
   return sales;
 };
 
+const findSalesByUserId = async (userId) => {
+  const sales = await Sale.findAll({ where: { userId } });
+  return sales;
+};
+
 const findSaleById = async (id) => {
   console.log('service', id);
   const sale = await Sale.findByPk(id, {
@@ -68,4 +73,5 @@ module.exports = {
   findSaleById,
   updateSaleStatus,
   createSale,
+  findSalesByUserId,
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { requestLogin } from '../API/requests';
 
@@ -33,6 +33,13 @@ export default function Login({ history }) {
       .catch(() => setError(true));
   };
   // utilizar try/catch
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      history.push('/');
+    }
+  });
 
   return (
     <section>

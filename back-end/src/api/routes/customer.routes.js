@@ -9,6 +9,7 @@ customerRoute.get('/products', customerController.getAllProducts);
 customerRoute.get('/checkout', customerController.getAllSeller);
 customerRoute.get('/orders/:id', authorizationToken, customerController.getSaleById);
 customerRoute.post('/orders', authorizationToken, customerController.createSale);
+customerRoute.get('/orders', authorizationToken, customerController.getSalesByUserId);
 customerRoute.patch('/orders/:id', authorizationToken, customerController.updateSaleStatus);
 
 module.exports = customerRoute;
