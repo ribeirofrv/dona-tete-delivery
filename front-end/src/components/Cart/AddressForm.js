@@ -1,36 +1,51 @@
-import { useContext, useState /* useEffect */ } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { /* requestData */ requestPost } from '../../API/requests';
+import { requestData, requestPost } from '../../API/requests';
 import Storage from '../../context/context';
 import dataTestIds from '../utils/dataTestIds';
 
 export default function AddressForm() {
   const { total } = useContext(Storage);
-
   const [seller, setSeller] = useState('default');
   const [deliveryAddress, setAddress] = useState('');
   const [deliveryNumber, setNumber] = useState('');
-  const attendant = ['Fulana Pereira', 'Ciclana Silva'];
-  // const attendant = requestData('customer/attendant');
-
+  const [attendant, setAttendant] = useState([]);
   const history = useHistory();
+
+  const getSeller = async () => {
+    const sellerReq = await requestData('/customer/checkout');
+    console.log('🚀 ~ file: Checkout.js:25 ~ getSeller ~ sellerReq', sellerReq);
+    setAttendant(sellerReq);
+    /* setOrder({ ...order, sellerId: sellers[0].id }); */
+  };
+
+  useEffect(() => {
+    getSeller();
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const user = JSON.parse(localStorage.getItem('user'));
-    const products = JSON.parse(localStorage.getItem('cart'));
+    const { id } = JSON.parse(localStorage.getItem('user'));
+    console.log('🚀 ~ file: AddressForm.js:30 ~ handleSubmit ~ id', id);
+    const productsList = JSON.parse(localStorage.getItem('cart'));
+    const products = productsList.map(({ productId, quantity }) => ({
+      productId, quantity,
+    }));
 
     const body = {
-      username: user.name,
-      seller,
-      status: 'Pendente',
+      userId: Number(id),
       totalPrice: total,
       deliveryAddress,
       deliveryNumber,
+      sellerId: seller,
+      status: 'Pendente',
       products,
     };
+    console.log('👻 ~ file: AddressForm.js:45 ~ handleSubmit ~ body', body);
+
     const order = await requestPost('/customer/orders', body);
-    console.log('👻 ~ file: AddressForm.js:33 ~ handleSubmit ~ order', order);
+
     history.push(`/customer/orders/${order.id}`);
   };
 
@@ -51,8 +66,8 @@ export default function AddressForm() {
         >
           <option value="default">Selecionar</option>
           {attendant.length > 0
-            && attendant.map((name, index) => (
-              <option key={ `seller-${index}` } value={ name }>
+            && attendant.map(({ id, name }) => (
+              <option key={ `seller-${name}` } value={ id }>
                 {name}
               </option>
             ))}

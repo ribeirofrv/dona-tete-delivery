@@ -6,7 +6,7 @@ const { authorizationToken } = require('../middlewares/authToken');
 const customerRoute = Router();
 
 customerRoute.get('/products', customerController.getAllProducts);
-customerRoute.get('/attendant', customerController.getAllSeller);
+customerRoute.get('/checkout', customerController.getAllSeller);
 customerRoute.get('/orders/:id', authorizationToken, customerController.getSaleById);
 customerRoute.post('/orders', authorizationToken, customerController.createSale);
 customerRoute.patch('/orders/:id', authorizationToken, customerController.updateSaleStatus);

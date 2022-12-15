@@ -14,7 +14,7 @@ const login = async (email, bodyPassword) => {
   const { id, role, name } = user;
   const token = generateToken({ email, id, role, name });
 
-  return { token, email, role, name };
+  return { token, id, email, role, name };
 };
 
 const register = async (body) => {
@@ -41,7 +41,7 @@ const findAllSeller = async () => {
   if (!sellers) {
     throw errorGenerate(404, 'No sellers available');
   }
-  const sellersNames = sellers.map(({ name }) => name);
+  const sellersNames = sellers.map(({ id, name }) => ({ id, name }));
   return sellersNames;
 };
 

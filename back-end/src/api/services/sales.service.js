@@ -26,19 +26,38 @@ const updateSaleStatus = async (id, body) => {
   await Sale.update(body, { where: { id } });
 };
 
-const createSale = async (order) => {
+const relateProducts = async ({ products, salesId }) => {
+  console.log(
+    '🚀 ~ file: sales.service.js:31 ~ relateProducts ~ products',
+    products,
+  );
+  const promises = products.map(({ productId, quantity }) =>
+    SalesProducts.create({
+      salesId,
+      productId,
+      quantity,
+    }));
+
+  await Promise.all(promises);
+};
+
+const createSale = async (saleInfo) => {
+  const {
+    userId,
+    products,
+    sellerId,
+    deliveryAddress,
+    deliveryNumber,
+    totalPrice,
+    status,
+  } = saleInfo;
+
+  const order = { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status };
+  console.log('🚀 ~ file: sales.service.js:55 ~ createSale ~ order', order);
+
   const sale = await Sale.create(order);
-  
   if (sale) {
-    await Promise.all(
-      order.products.map(async ({ productId, quantity }) => {
-        SalesProducts.create({
-          saleId: sale.id,
-          productId,
-          quantity,
-        });
-      }),
-    );
+    await relateProducts({ products, salesId: sale.id });
   }
   return sale;
 };

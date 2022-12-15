@@ -34,7 +34,6 @@ const updateSaleStatus = async (request, response, next) => {
   try {
     const { body } = request;
     const { id } = request.params;
-    console.log('controller', body);
     await salesService.updateSaleStatus(id, body);
     return response.status(200).json(body.status);
   } catch (error) {
@@ -43,7 +42,7 @@ const updateSaleStatus = async (request, response, next) => {
 };
 
 const createSale = async (request, response, next) => {
-  try {
+  /* try {
     const { body } = request;
     const userId = await userService.findUserByName(body.username);
     const sellerId = await userService.findUserByName(body.seller);
@@ -63,7 +62,16 @@ const createSale = async (request, response, next) => {
     return response.status(201).json(sale);
   } catch (error) {
     next(error);
-  }
+  } */
+  try {
+    const { body } = request;
+
+  const createdSales = await salesService.createSale(body);
+
+  return response.status(201).json(createdSales);
+} catch (error) {
+  next(error);
+}
 };
 
 module.exports = { getAllProducts, getSaleById, updateSaleStatus, createSale, getAllSeller };
