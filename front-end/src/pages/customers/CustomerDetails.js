@@ -40,28 +40,28 @@ export default function CustomerDetails({ match: { params: { id } } }) {
         <section>
           <div>
             <p
-              data-testid={ `${dataTestIds[38]}${sale.id}` }
+              data-testid={ `${dataTestIds[38]}-${sale.id}` }
             >
-              { sale.deliveryNumber}
+              { sale.id }
             </p>
             <p
-              data-testid={ `${dataTestIds[39]}${sale.id}` }
+              data-testid={ `${dataTestIds[39]}-${sale.id}` }
             >
               { sale.seller.name }
             </p>
             <p
-              data-testid={ `${dataTestIds[40]}${sale.id}` }
+              data-testid={ `${dataTestIds[40]}-${sale.id}` }
             >
               { moment(sale.saleDate).format('DD/MM/YYYY')}
             </p>
             <p
-              data-testid={ `${dataTestIds[41]}${sale.id}` }
+              data-testid={ `${dataTestIds[41]}-${sale.id}` }
             >
               { saleStatus }
             </p>
             <button
               type="button"
-              data-testid={ `${dataTestIds[48]}${sale.id}` }
+              data-testid={ `${dataTestIds[48]}` }
               disabled={ saleStatus !== 'Em Trânsito' }
               onClick={ () => updateStatus('Entregue') }
             >
@@ -74,9 +74,7 @@ export default function CustomerDetails({ match: { params: { id } } }) {
           <div
             data-testid={ `${dataTestIds[47]}` }
           >
-            Total:
-            {' '}
-            { sale.totalPrice}
+            { sale.totalPrice.replace('.', ',') }
           </div>
         </section>
       ) }

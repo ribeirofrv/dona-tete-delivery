@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { requestPost } from '../API/requests';
+import { requestLogin } from '../API/requests';
 
 export default function Register({ history }) {
   const [email, setEmail] = useState('');
@@ -27,7 +27,7 @@ export default function Register({ history }) {
   };
 
   const handleRegister = async () => {
-    requestPost('/register', { email, password, name })
+    requestLogin('/register', { email, password, name })
       .then((data) => setLocalStorage(data))
       .catch(() => setError(true));
   };

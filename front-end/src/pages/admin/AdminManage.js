@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { requestData, requestDelete, requestPost } from '../../API/requests';
 import AdminTable from '../../components/AdminTable';
 import AdminBtn from '../../components/Header/AdminBtn';
-import Header from '../../components/Header/Header';
+import Header from '../../components/Header';
 
 export default function AdminManage() {
   const rolesList = ['administrator', 'seller', 'customer'];
